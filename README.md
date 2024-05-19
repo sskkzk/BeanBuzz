@@ -1,24 +1,43 @@
-# README
+# <!--ここにアプリ名を入力-->
+​
+## サイト概要
+### サイトテーマ
+<!--何を『目的』とし、どのような『分類』なのかを簡潔に書く-->
+コーヒー✖️SNSをテーマとしたい。
+​テイストノートの管理、共有が目的である。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+### テーマを選んだ理由
+<!--なぜこのようなテーマにしたかを説明する-->
+コーヒーに関するSNSが少ない。
+コーヒー豆それぞれのテイストノートの管理も行いたい。
+コーヒーが苦いだけのものという概念を改善したい。
 
-* Ruby version
+​
+### ターゲットユーザ
+<!--誰に使ってもらうかを具体的に記載する-->
+​コーヒーが好きな方。
+コーヒーが苦手な方にも興味を持ってもらう。
 
-* System dependencies
 
-* Configuration
+### 主な利用シーン
+<!--どのような時に使うのかの状況を記載すること-->
+初めて飲む品種のコーヒー豆を飲んだ時。
+国、ウォシュドかナチュラルか、焙煎度、テイストノートなどの記載を行いたい。
+８段階評価くらいでそれぞれ味わいなど書けるようにする。
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+​
+## 設計書
+<!--テーマを設定・提出する時点では不要です-->
+​
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
+​
+## 使用素材
+- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
+- アプリケーションの実装に使用したgem/bootstrapのリファレンスなどの記載は不要です。
+- 使用しない場合は、使用素材の項目をREADMEから削除してください。
