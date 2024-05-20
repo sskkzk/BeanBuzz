@@ -1,4 +1,5 @@
-# <!--ここにアプリ名を入力-->
+#
+https://docs.google.com/spreadsheets/d/1GDi8sYKpHTGTcA9YAAkQVuw8RxzeMk-B-lWc6U1NL2U/edit?usp=sharing
 ​
 ## サイト概要
 サイト名：Bean Buzz
@@ -6,7 +7,7 @@
 
 ### サイトテーマ
 コーヒー✖️SNSをテーマとしたい。
-​コーヒーノートの管理、共有を通して多くの方にコーヒーを楽しんでもらいたいです。
+コーヒーノートの管理、共有を通して多くの方にコーヒーを楽しんでもらいたいです。
 
 
 ### テーマを選んだ理由
