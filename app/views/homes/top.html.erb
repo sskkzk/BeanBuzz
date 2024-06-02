@@ -1,34 +1,29 @@
-<h1>Homes#top</h1>
-<div class="row">
-  <div class="col-md-8">
-    <h1>Latest Coffee Posts</h1>
-    
-     <!--@posts.each do |post| -->
-     <!-- <div class="card mb-4">-->
-     <!--   <div class="card-body">-->
-     <!--     <h5 class="card-title"> post.title </h5>-->
-     <!--     <p class="card-text"> truncate(post.body, length: 100) </p>-->
-     <!--     <a href=" post_path(post) " class="btn btn-primary">Read more</a>-->
-     <!--     <button class="btn btn-outline-primary" data-post-id=" post.id ">Like ( post.likes_count )</button>-->
-     <!--   </div>-->
-     <!--   <div class="card-footer text-muted">-->
-     <!--     Posted by  link_to post.user.name, user_path(post.user)  on  post.created_at.strftime("%B %d, %Y") -->
-     <!--   </div>-->
-     <!-- </div>-->
-     <!--end -->
-    
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center mt-5">ようこそBeanBuzzへ！</h1>
+    </div>
   </div>
-  <div class="col-md-4">
-    <h2>Popular Users</h2>
-    <ul class="list-group">
-      
-       <!--@popular_users.each do |user| -->
-       <!-- <li class="list-group-item d-flex justify-content-between align-items-center">-->
-       <!--    link_to user.name, user_path(user) -->
-       <!--   <span class="badge bg-primary rounded-pill">followers</span>-->
-       <!-- </li>-->
-       <!--end -->
-      
-    </ul>
+  <% if user_signed_in? %>
+  <div class="row mt-4 justify-content-center">
+    <div class="col-8">
+      <%= link_to 'コーヒーの世界へ！', '/posts/index', class: 'btn btn-primary btn-lg btn-block' %>
+    </div>
   </div>
-</div>
+  <% else %>
+    <!--各種リンク-->
+  <div class="row mt-4 justify-content-center">
+    <div class="col-8">
+      <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-primary btn-lg btn-block' %>
+    </div>
+  </div>
+  <div class="row mt-4 justify-content-center">
+    <div class="col-8">
+      <%= link_to 'Log in', new_user_session_path, class: 'btn btn-primary btn-lg btn-block' %>
+    </div>
+  </div>
+  <div class="row mt-4 justify-content-center">
+    <div class="col-8">
+      <%= link_to 'まずはお試し！', '/posts/index', class: 'btn btn-info btn-lg btn-block' %>
+    </div>
+  </div>
+<% end %>

@@ -9,6 +9,6 @@ Rails.application.routes.draw do
   # トップページのルーティング
   root to: 'homes#top'
    # aboutページのルーティング
-  get 'home/about', to: 'homes#about'  
+  get '/about', to: 'homes#about'  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
