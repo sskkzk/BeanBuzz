@@ -12,7 +12,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       # タイトル
       t.string :been_title
       # 本文
-      t.text :title
+      t.text :been_body
       # 作成更新日時
       t.timestamps
       # 画像はアクティブストレージ利用

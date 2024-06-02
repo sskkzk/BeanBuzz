@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2024_06_02_130435) do
     t.string "been_taste"
     t.string "been_extraction"
     t.string "been_title"
-    t.text "title"
+    t.text "been_body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
