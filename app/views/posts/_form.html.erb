@@ -1,0 +1,52 @@
+<%= form_with(model: post) do |form| %>
+  <% if post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+        <% post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :bean_image %>
+    <%= form.file_field :bean_image, accept: "image/*" %>
+  </div>
+    
+  <div class="field">
+    <%= form.label :bean_origin %>
+    <%= form.text_field :bean_origin %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bean_roast %>
+    <%= form.text_field :bean_roast %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bean_taste %>
+    <%= form.text_field :bean_taste %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bean_extraction %>
+    <%= form.text_field :bean_extraction %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bean_title %>
+    <%= form.text_field :bean_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bean_body %>
+    <%= form.text_area :bean_body %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

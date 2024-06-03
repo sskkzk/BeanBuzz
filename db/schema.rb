@@ -64,12 +64,12 @@ ActiveRecord::Schema.define(version: 2024_06_02_130435) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.string "been_origin"
-    t.string "been_roast"
-    t.string "been_taste"
-    t.string "been_extraction"
-    t.string "been_title"
-    t.text "been_body"
+    t.string "bean_origin"
+    t.string "bean_roast"
+    t.string "bean_taste"
+    t.string "bean_extraction"
+    t.string "bean_title"
+    t.text "bean_body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

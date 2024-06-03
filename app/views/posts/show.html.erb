@@ -1,0 +1,36 @@
+<h1><%= @post.bean_title %></h1>
+
+<td>
+  <% if @post.bean_image.attached? %>
+    <%= image_tag @post.bean_image.variant(resize: "100x100") %>
+  <% else %>
+    <%= image_tag "bean.jpg", size: "100x100" %>
+  <% end %>
+</td>
+<p>
+  <strong>Origin:</strong>
+  <%= @post.bean_origin %>
+</p>
+
+<p>
+  <strong>Roast:</strong>
+  <%= @post.bean_roast %>
+</p>
+
+<p>
+  <strong>Taste:</strong>
+  <%= @post.bean_taste %>
+</p>
+
+<p>
+  <strong>Extraction:</strong>
+  <%= @post.bean_extraction %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @post.bean_body %>
+</p>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>

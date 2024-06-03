@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
+  devise_for :users
   get 'homes/top'
   get 'homes/about'
-  devise_for :users
-  resource :posts
-  resource :follows
-  resource :favorites
-  resource :comments
+  resources :posts, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  resources :follows, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  resources :favorites, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  resources :comments, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   # トップページのルーティング
   root to: 'homes#top'
    # aboutページのルーティング

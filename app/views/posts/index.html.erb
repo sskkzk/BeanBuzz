@@ -1,0 +1,40 @@
+<h1>Posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th>Origin</th>
+      <th>Roast</th>
+      <th>Taste</th>
+      <th>Extraction</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        
+        <td>
+          <% if post.bean_image.attached? %>
+            <%= image_tag post.bean_image.variant(resize_to_limit: [100, 100]) %>
+          <% else %>
+            <%= image_tag "bean.jpg", size: "100x100" %>
+          <% end %>
+        </td>
+        <td><%= post.bean_title %></td>
+        <td><%= post.bean_origin %></td>
+        <td><%= post.bean_roast %></td>
+        <td><%= post.bean_taste %></td>
+        <td><%= post.bean_extraction %></td>
+        <td><%= link_to 'Show', post %></td>
+        <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Post', new_post_path %>
