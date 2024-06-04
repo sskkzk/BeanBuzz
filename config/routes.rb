@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
+  get '/mypage', to: 'users#mypage', as: 'mypage'
+  resources :users, except: [:new, :create]
   get 'homes/top'
   get 'homes/about'
   resources :posts, only: [:index, :new, :create, :show, :edit, :update, :destroy]

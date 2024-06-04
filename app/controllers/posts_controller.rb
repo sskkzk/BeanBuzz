@@ -1,10 +1,12 @@
 class PostsController < ApplicationController
   def index
     @posts = Post.all
+    @posts.each(&:get_image)
   end
 
   def show
     @post = Post.find(params[:id])
+    @post.get_image
   end
 
   def new
@@ -38,11 +40,11 @@ class PostsController < ApplicationController
     @post.destroy
     redirect_to posts_url, notice: 'Post was successfully destroyed.'
   end
-  
+
   private
+
   def post_params
-    params.require(:post).permit(:bean_origin, :bean_roast, :bean_taste, :bean_extraction, :bean_title, :bean_body, :bean_image) 
+    params.require(:post).permit(:bean_origin, :bean_roast, :bean_taste, :bean_extraction, :bean_title, :bean_body, :bean_image)
   end
-  
   
 end
