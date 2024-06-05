@@ -1,7 +1,12 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+
   def index
-    @posts = Post.all
-    @posts.each(&:get_image)
+    if params[:search]
+      @posts = Post.search(params[:search])
+    else
+      @posts = Post.all
+    end
   end
 
   def show
@@ -14,7 +19,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.build(post_params)
     if @post.save
       redirect_to @post, notice: 'Post was successfully created.'
     else

@@ -1,9 +1,8 @@
 <!-- app/views/shared/_header.html.erb -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light px-5 ">
-  
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-5">
   <!--コーヒーロゴ-->
   <span class="material-symbols-outlined">
-  coffee_maker
+    coffee_maker
   </span>
   <%= link_to 'BeanBuzz', root_path, class: 'navbar-brand' %>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,28 +11,22 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <%= link_to 'Home', root_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'About', '/about', class: 'nav-link' %>
-      </li>
-      
       <% if user_signed_in? %>
-      <li class="nav-item">
-        <%= link_to '投稿一覧Home', root_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= link_to '要考慮About', '/about', class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= link_to '要考慮Posts', '#', class: 'nav-link' %>
-      </li>
         <li class="nav-item">
-          <%= link_to 'New Post', '#', class: 'nav-link' %>
+          <%= link_to 'Home', '/posts', class: 'nav-link' %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to 'Home', root_path, class: 'nav-link' %>
         </li>
         <li class="nav-item">
-          <%= link_to 'My Page', '#', class: 'nav-link' %>
+          <%= link_to 'About', '/about', class: 'nav-link' %>
+        </li>
+      <% end %>
+      
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to 'New Post', '/posts/new', class: 'nav-link' %>
         </li>
         <li class="nav-item">
           <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link' %>
@@ -47,21 +40,26 @@
         </li>
       <% end %>
     </ul>
+
     <!--ユーザー画像を押すとユーザー詳細へ-->
     <% if user_signed_in? %>
-      <ul class="navbar-nav">
+      <ul class="navbar-nav mr-3">
         <li class="nav-item">
-          <%= link_to '#', class: 'nav-link' do %>
-            <!-- ユーザーアイコン（ここでは記号を使用） -->
-            <span class="material-symbols-outlined">account_circle</span>
+          <%= link_to mypage_path do %>
+            <% if current_user.user_image.attached? %>
+              <%= image_tag current_user.user_image.variant(resize_to_fill: [40, 40]).processed, class: 'rounded-circle', alt: 'User Image' %>
+            <% else %>
+              <!-- ユーザーアイコン -->
+              <span class="material-symbols-outlined">account_circle</span>
+            <% end %>
           <% end %>
         </li>
       </ul>
     <% end %>
     
-    <form class="form-inline my-2 my-lg-0" action="#" method="GET">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+  <%= form_with(url: posts_path, method: "get", class: "form-inline my-2 my-lg-0") do %>
+  <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Search", aria_label: "Search" %>
+  <%= submit_tag "Search", class: "btn btn-outline-success my-2 my-sm-0" %>
+　<% end %>
   </div>
 </nav>

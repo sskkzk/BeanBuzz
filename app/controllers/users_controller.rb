@@ -1,13 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!
 
-  # GET /mypage
   def mypage
-    @user = current_user
-    render :show
+    current_user.get_image
+    @posts = current_user.posts
   end
-
+  
   # GET /users
   def index
     @users = User.all

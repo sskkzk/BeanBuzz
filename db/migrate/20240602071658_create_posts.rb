@@ -13,6 +13,8 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       t.string :bean_title
       # 本文
       t.text :bean_body
+      # ユーザーID保存用
+      t.integer :user_id
       # 作成更新日時
       t.timestamps
       # 画像はアクティブストレージ利用

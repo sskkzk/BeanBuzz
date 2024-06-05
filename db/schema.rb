@@ -42,11 +42,15 @@ ActiveRecord::Schema.define(version: 2024_06_02_130435) do
 
   create_table "comments", force: :cascade do |t|
     t.text "comment_body"
+    t.integer "user_id"
+    t.integer "posts_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "posts_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -70,6 +74,7 @@ ActiveRecord::Schema.define(version: 2024_06_02_130435) do
     t.string "bean_extraction"
     t.string "bean_title"
     t.text "bean_body"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -1,31 +1,40 @@
 <h1>Posts</h1>
 
-<div class="container">
-  <div class="row">
-    <% @posts.each do |post| %>
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <% if post.bean_image.attached? %>
-            <%= image_tag post.bean_image.variant(resize_to_fill: [300, 300]).processed, class: 'card-img-top', alt: 'Bean Image' %>
-          <% else %>
-            <%= image_tag 'bean.jpg', size: "300x300", class: 'card-img-top', alt: 'Default Bean Image' %>
-          <% end %>
-          <div class="card-body">
-            <h5 class="card-title"><%= post.bean_title %></h5>
-            <p class="card-text"><strong>Origin:</strong> <%= post.bean_origin %></p>
-            <p class="card-text"><strong>Roast:</strong> <%= post.bean_roast %></p>
-            <p class="card-text"><strong>Taste:</strong> <%= post.bean_taste %></p>
-            <p class="card-text"><strong>Extraction:</strong> <%= post.bean_extraction %></p>
-            <div class="d-flex justify-content-between">
-              <%= link_to 'Show', post, class: 'btn btn-primary' %>
-              <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-secondary' %>
-              <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+<div class="row mt-4">
+  <% @posts.each do |post| %>
+    <div class="col-md-12 mb-4">
+      <div class="card">
+        <div class="card-body d-flex">
+          <div class="user-info mr-3">
+            <h5><%= post.user.name %></h5>
+            <% if post.user.user_image.attached? %>
+              <%= image_tag post.user.user_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'User Image' %>
+            <% else %>
+              <%= image_tag 'coffee.jpg', size: "60x60", class: 'rounded-circle', alt: 'Default User Image' %>
+            <% end %>
+          </div>
+          <div class="post-content d-flex">
+            <div class="post-image mr-3">
+              <% if post.bean_image.attached? %>
+                <%= image_tag post.bean_image.variant(resize_to_fill: [200, 200]).processed, class: 'img-thumbnail', alt: 'Bean Image' %>
+              <% else %>
+                <%= image_tag 'bean.jpg', size: "200x200", class: 'img-thumbnail', alt: 'Default Bean Image' %>
+              <% end %>
+            </div>
+            <div class="post-details">
+              <p><strong>Title:</strong> <%= post.bean_title %></p>
+              <p><strong>Origin:</strong> <%= post.bean_origin %></p>
+              <p><strong>Roast:</strong> <%= post.bean_roast %></p>
+              <p><strong>Created At:</strong> <%= post.created_at.strftime("%Y-%m-%d") %></p>
             </div>
           </div>
         </div>
+        <div class="card-footer d-flex justify-content-between">
+          <%= link_to 'Show', post, class: 'btn btn-primary' %>
+        </div>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
 
 <%= link_to 'New Post', new_post_path, class: 'btn btn-success mt-4' %>

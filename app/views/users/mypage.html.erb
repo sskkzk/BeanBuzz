@@ -1,0 +1,44 @@
+<h1>My Page</h1>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body text-center">
+        <% if current_user.user_image.attached? %>
+          <%= image_tag current_user.user_image.variant(resize_to_fill: [300, 300]).processed, class: 'rounded-circle', alt: 'User Image' %>
+        <% else %>
+          <%= image_tag 'coffee.jpg', size: "300x300", class: 'rounded-circle', alt: 'Default User Image' %>
+        <% end %>
+        <h5 class="card-title mt-3"><%= current_user.name %></h5>
+        <p class="card-text"><strong>Email:</strong> <%= current_user.email %></p>
+        <p class="card-text"><strong>Introduction:</strong> <%= current_user.introduction %></p>
+        <%= link_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-secondary' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <h2>投稿一覧</h2>
+    <% current_user.posts.each do |post| %>
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <% if post.bean_image.attached? %>
+              <%= image_tag post.bean_image.variant(resize_to_fill: [200, 150]).processed, class: 'img-thumbnail', alt: 'Post Image' %>
+            <% end %>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><%= post.bean_title %></h5>
+              <p class="card-text"><%= post.bean_body %></p>
+              <p class="card-text"><small class="text-muted">投稿日時: <%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></small></p>
+              <%= link_to 'Show', post, class: 'btn btn-primary' %>
+              <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-secondary' %>
+              <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
