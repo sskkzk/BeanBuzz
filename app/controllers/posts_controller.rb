@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-
+ 
   def index
     if params[:search]
       @posts = Post.search(params[:search])
@@ -49,7 +49,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:bean_origin, :bean_roast, :bean_taste, :bean_extraction, :bean_title, :bean_body, :bean_image)
+    params.require(:post).permit(:bean_origin, :bean_roast, :bean_acidity, :bean_bitter, :bean_extraction, :bean_title, :bean_body, :bean_image)
   end
   
 end

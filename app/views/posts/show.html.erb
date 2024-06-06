@@ -12,8 +12,39 @@
         <div class="card-body">
           <h5 class="card-title"><%= @post.bean_title %></h5>
           <p class="card-text"><strong>Origin:</strong> <%= @post.bean_origin %></p>
-          <p class="card-text"><strong>Roast:</strong> <%= @post.bean_roast %></p>
-          <p class="card-text"><strong>Taste:</strong> <%= @post.bean_taste %></p>
+          <p class="card-text">
+            <strong>Roast:</strong> 
+            <div class="progress">
+              <div class="progress-bar bg-success" role="progressbar" style="width: <%= (@post.bean_roast.to_i * 16).to_s %>%" aria-valuenow="<%= @post.bean_roast.to_i %>" aria-valuemin="1" aria-valuemax="5"></div>
+            </div>
+            <div class="d-flex justify-content-between">
+              <small class="form-text text-muted">Light Roast</small>
+              <small class="form-text text-muted">Medium Roast</small>
+              <small class="form-text text-muted">Dark Roast</small>
+            </div>
+          </p>
+          <p class="card-text">
+            <strong>Acidity:</strong> 
+            <div class="progress">
+              <div class="progress-bar bg-primary" role="progressbar" style="width: <%= (@post.bean_acidity.to_i * 16).to_s %>%" aria-valuenow="<%= @post.bean_acidity.to_i %>" aria-valuemin="1" aria-valuemax="5"></div>
+            </div>
+            <div class="d-flex justify-content-between">
+              <small class="form-text text-muted">少</small>
+              <small class="form-text text-muted">酸味</small>
+              <small class="form-text text-muted">多</small>
+            </div>
+          </p>
+          <p class="card-text">
+            <strong>Bitterness:</strong> 
+            <div class="progress">
+              <div class="progress-bar bg-danger" role="progressbar" style="width: <%= (@post.bean_bitter.to_i * 16).to_s %>%" aria-valuenow="<%= @post.bean_bitter.to_i %>" aria-valuemin="1" aria-valuemax="5"></div>
+            </div>
+            <div class="d-flex justify-content-between">
+              <small class="form-text text-muted">少</small>
+              <small class="form-text text-muted">苦味</small>
+              <small class="form-text text-muted">多</small>
+            </div>
+          </p>
           <p class="card-text"><strong>Extraction:</strong> <%= @post.bean_extraction %></p>
           <p class="card-text"><strong>Body:</strong> <%= @post.bean_body %></p>
           <div class="d-flex justify-content-between">
@@ -25,3 +56,5 @@
     </div>
   </div>
 </div>
+
+

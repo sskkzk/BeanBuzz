@@ -1,0 +1,13 @@
+<!-- app/views/shared/_range_indicator.html.erb -->
+<div class="form-group">
+  <%= label_tag field, label %><br>
+  <div class="range-wrapper">
+    <%= number_field_tag field, value, in: 1..5, step: 1, class: "form-control-range", readonly: true %>
+    <div class="range-bar"></div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <small class="form-text text-muted"><%= left_label %></small>
+    <small class="form-text text-muted"><%= middle_label %></small>
+    <small class="form-text text-muted"><%= right_label %></small>
+  </div>
+</div>

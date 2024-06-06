@@ -4,7 +4,8 @@ class Post < ApplicationRecord
   
   validates :bean_origin, presence: true
   validates :bean_roast, presence: true
-  validates :bean_taste, presence: true
+  validates :bean_acidity, presence: true
+  validates :bean_bitter, presence: true
   validates :bean_extraction, presence: true
   validates :bean_title, presence: true
   validates :bean_body, presence: true
