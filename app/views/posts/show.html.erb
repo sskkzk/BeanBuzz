@@ -1,32 +1,38 @@
-<h1><%= @post.bean_title %></h1>
-
-<div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card mb-4">
-        <% if @post.bean_image.attached? %>
-          <%= image_tag @post.bean_image.variant(resize_to_fill: [600, 600]).processed, class: 'card-img-top', alt: 'Bean Image' %>
-        <% else %>
-          <%= image_tag 'bean.jpg', size: "600x600", class: 'card-img-top', alt: 'Default Bean Image' %>
-        <% end %>
+        <div class="card-header d-flex align-items-center">
+          <% if @post.user.user_image.attached? %>
+            <%= image_tag @post.user.user_image.variant(resize_to_fill: [40, 40]).processed, class: 'rounded-circle mr-2', alt: 'User Image' %>
+          <% else %>
+            <%= image_tag 'default_user_image.jpg', size: "40x40", class: 'rounded-circle mr-2', alt: 'Default User Image' %>
+          <% end %>
+          <h5 class="card-title m-0">
+            <%= link_to @post.user.name, user_path(@post.user), class: 'text-dark' %>
+          </h5>
+        </div>
         <div class="card-body">
-          <h5 class="card-title"><%= @post.bean_title %></h5>
+          <% if @post.bean_image.attached? %>
+            <%= image_tag @post.bean_image.variant(resize_to_fill: [600, 600]).processed, class: 'card-img-top', alt: 'Bean Image' %>
+          <% else %>
+            <%= image_tag 'bean.jpg', size: "600x600", class: 'card-img-top', alt: 'Default Bean Image' %>
+          <% end %>
           <p class="card-text"><strong>Origin:</strong> <%= @post.bean_origin %></p>
           <p class="card-text">
             <strong>Roast:</strong> 
             <div class="progress">
-              <div class="progress-bar bg-success" role="progressbar" style="width: <%= (@post.bean_roast.to_i * 16).to_s %>%" aria-valuenow="<%= @post.bean_roast.to_i %>" aria-valuemin="1" aria-valuemax="5"></div>
+              <div class="progress-bar bg-success" role="progressbar" style="width: <%= (@post.bean_roast.to_i * 25).to_s %>%" aria-valuenow="<%= @post.bean_roast.to_i %>" aria-valuemin="0" aria-valuemax="4"></div>
             </div>
             <div class="d-flex justify-content-between">
-              <small class="form-text text-muted">Light Roast</small>
-              <small class="form-text text-muted">Medium Roast</small>
-              <small class="form-text text-muted">Dark Roast</small>
+              <small class="form-text text-muted">浅煎り</small>
+              <small class="form-text text-muted">中煎り</small>
+              <small class="form-text text-muted">深煎り</small>
             </div>
           </p>
           <p class="card-text">
             <strong>Acidity:</strong> 
             <div class="progress">
-              <div class="progress-bar bg-primary" role="progressbar" style="width: <%= (@post.bean_acidity.to_i * 16).to_s %>%" aria-valuenow="<%= @post.bean_acidity.to_i %>" aria-valuemin="1" aria-valuemax="5"></div>
+              <div class="progress-bar bg-primary" role="progressbar" style="width: <%= (@post.bean_acidity.to_i * 25).to_s %>%" aria-valuenow="<%= @post.bean_acidity.to_i %>" aria-valuemin="0" aria-valuemax="4"></div>
             </div>
             <div class="d-flex justify-content-between">
               <small class="form-text text-muted">少</small>
@@ -37,7 +43,7 @@
           <p class="card-text">
             <strong>Bitterness:</strong> 
             <div class="progress">
-              <div class="progress-bar bg-danger" role="progressbar" style="width: <%= (@post.bean_bitter.to_i * 16).to_s %>%" aria-valuenow="<%= @post.bean_bitter.to_i %>" aria-valuemin="1" aria-valuemax="5"></div>
+              <div class="progress-bar bg-danger" role="progressbar" style="width: <%= (@post.bean_bitter.to_i * 25).to_s %>%" aria-valuenow="<%= @post.bean_bitter.to_i %>" aria-valuemin="0" aria-valuemax="4"></div>
             </div>
             <div class="d-flex justify-content-between">
               <small class="form-text text-muted">少</small>
@@ -50,11 +56,12 @@
           <div class="d-flex justify-content-between">
             <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-secondary' %>
             <%= link_to 'Back', posts_path, class: 'btn btn-primary' %>
+            <% if current_user == @post.user %>
+              <%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
 

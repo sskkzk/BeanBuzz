@@ -14,6 +14,7 @@ class UsersController < ApplicationController
 
   # GET /users/:id
   def show
+    @user = User.find(params[:id])
     @posts = @user.posts  # ユーザーの投稿一覧
   end
 

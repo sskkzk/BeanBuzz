@@ -2,18 +2,22 @@
 
 <div class="row mt-4">
   <% @posts.each do |post| %>
-    <div class="col-md-12 mb-4">
+    <div class="col-md-6 mb-4">
       <div class="card">
         <div class="card-body d-flex">
           <div class="user-info mr-3">
-            <h5><%= post.user.name %></h5>
-            <% if post.user.user_image.attached? %>
-              <%= image_tag post.user.user_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'User Image' %>
-            <% else %>
-              <%= image_tag 'coffee.jpg', size: "60x60", class: 'rounded-circle', alt: 'Default User Image' %>
+            <% if post.user %>
+              <%= link_to user_path(post.user), class: 'text-dark' do %>
+                <h5><%= post.user.name %></h5>
+                <% if post.user.user_image.attached? %>
+                  <%= image_tag post.user.user_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'User Image' %>
+                <% else %>
+                  <%= image_tag 'coffee.jpg', size: "60x60", class: 'rounded-circle', alt: 'Default User Image' %>
+                <% end %>
+              <% end %>
             <% end %>
           </div>
-          <div class="post-content d-flex">
+          <div class="post-content d-flex w-100">
             <div class="post-image mr-3">
               <% if post.bean_image.attached? %>
                 <%= image_tag post.bean_image.variant(resize_to_fill: [200, 200]).processed, class: 'img-thumbnail', alt: 'Bean Image' %>
@@ -21,10 +25,44 @@
                 <%= image_tag 'bean.jpg', size: "200x200", class: 'img-thumbnail', alt: 'Default Bean Image' %>
               <% end %>
             </div>
-            <div class="post-details">
-              <p><strong>Title:</strong> <%= post.bean_title %></p>
+            <div class="post-details flex-grow-1">
+              <h5 class="card-title"><%= post.bean_title %></h5>
               <p><strong>Origin:</strong> <%= post.bean_origin %></p>
-              <p><strong>Roast:</strong> <%= post.bean_roast %></p>
+              <p>
+                <strong>Roast:</strong>
+                <div class="progress">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: <%= (post.bean_roast.to_i * 25).to_s %>%" aria-valuenow="<%= post.bean_roast.to_i %>" aria-valuemin="0" aria-valuemax="4"></div>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <small class="form-text text-muted">浅煎り</small>
+                  <small class="form-text text-muted">中煎り</small>
+                  <small class="form-text text-muted">深煎り</small>
+                </div>
+              </p>
+              <p>
+                <strong>Acidity:</strong>
+                <div class="progress">
+                  <div class="progress-bar bg-primary" role="progressbar" style="width: <%= (post.bean_acidity.to_i * 25).to_s %>%" aria-valuenow="<%= post.bean_acidity.to_i %>" aria-valuemin="0" aria-valuemax="4"></div>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <small class="form-text text-muted">少</small>
+                  <small class="form-text text-muted">酸味</small>
+                  <small class="form-text text-muted">多</small>
+                </div>
+              </p>
+              <p>
+                <strong>Bitterness:</strong>
+                <div class="progress">
+                  <div class="progress-bar bg-danger" role="progressbar" style="width: <%= (post.bean_bitter.to_i * 25).to_s %>%" aria-valuenow="<%= post.bean_bitter.to_i %>" aria-valuemin="0" aria-valuemax="4"></div>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <small class="form-text text-muted">少</small>
+                  <small class="form-text text-muted">苦味</small>
+                  <small class="form-text text-muted">多</small>
+                </div>
+              </p>
+              <p><strong>Extraction:</strong> <%= post.bean_extraction %></p>
+              <p><strong>Body:</strong> <%= post.bean_body %></p>
               <p><strong>Created At:</strong> <%= post.created_at.strftime("%Y-%m-%d") %></p>
             </div>
           </div>
@@ -38,3 +76,4 @@
 </div>
 
 <%= link_to 'New Post', new_post_path, class: 'btn btn-success mt-4' %>
+
