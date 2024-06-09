@@ -4,9 +4,9 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       # 豆の産地
       t.string :bean_origin
       # 豆の焙煎度
-      t.string :bean_roast
+      t.integer :bean_roast
       # 豆の苦味
-      t.string :bean_bitter
+      t.integer :bean_bitter
       # 抽出方法
       t.string :bean_extraction
       # タイトル

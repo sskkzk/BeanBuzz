@@ -69,15 +69,15 @@ ActiveRecord::Schema.define(version: 2024_06_06_135917) do
 
   create_table "posts", force: :cascade do |t|
     t.string "bean_origin"
-    t.string "bean_roast"
-    t.string "bean_bitter"
+    t.integer "bean_roast"
+    t.integer "bean_bitter"
     t.string "bean_extraction"
     t.string "bean_title"
     t.text "bean_body"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "bean_acidity"
+    t.integer "bean_acidity"
   end
 
   create_table "users", force: :cascade do |t|

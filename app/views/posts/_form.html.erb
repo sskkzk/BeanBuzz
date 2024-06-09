@@ -6,17 +6,17 @@
 
   <div class="form-group">
     <%= form.label :bean_roast, "焙煎度" %><br>
-    <%= form.range_field :bean_roast, in: 0..4, step: 1, class: "form-control-range" %>
+    <%= form.range_field :bean_roast, in: 1..5, step: 1, class: "form-control-range" %>
     <small class="form-text text-muted d-flex justify-content-between">
       <span>浅煎り</span>
-      <span>中深煎り</span>
+      <span>中煎り</span>
       <span>深煎り</span>
     </small>
   </div>
 
   <div class="form-group">
     <%= form.label :bean_acidity, "豆の酸味" %><br>
-    <%= form.range_field :bean_acidity, in: 0..4, step: 1, class: "form-control-range" %>
+    <%= form.range_field :bean_acidity, in: 1..5, step: 1, class: "form-control-range" %>
     <small class="form-text text-muted d-flex justify-content-between">
       <span>控えめ</span>
       <span>中</span>
@@ -26,7 +26,7 @@
 
   <div class="form-group">
     <%= form.label :bean_bitter, "豆の苦味" %><br>
-    <%= form.range_field :bean_bitter, in: 0..4, step: 1, class: "form-control-range" %>
+    <%= form.range_field :bean_bitter, in: 1..5, step: 1, class: "form-control-range" %>
     <small class="form-text text-muted d-flex justify-content-between">
       <span>控えめ</span>
       <span>中</span>

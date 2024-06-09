@@ -1,1 +1,9 @@
 @use '~bootstrap/scss/bootstrap';
+
+   .fa-star {
+    font-size: 24px;
+    color: #ddd;
+  }
+  .fa-star.checked {
+    color: #ffca28;
+  }

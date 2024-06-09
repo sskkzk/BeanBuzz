@@ -49,8 +49,14 @@
               <p><strong>Origin:</strong> <%= post.bean_origin %></p>
               <p>
                 <strong>Roast:</strong>
-                <div class="progress">
-                  <div class="progress-bar bg-success" role="progressbar" style="width: <%= (post.bean_roast.to_i * 25).to_s %>%" aria-valuenow="<%= post.bean_roast.to_i %>" aria-valuemin="0" aria-valuemax="4"></div>
+                <div class="star-rating d-flex justify-content-between">
+                  <% 5.times do |i| %>
+                    <% if i < post.bean_roast.to_i %>
+                      <span class="fa fa-star checked"></span>
+                    <% else %>
+                      <span class="fa fa-star"></span>
+                    <% end %>
+                  <% end %>
                 </div>
                 <div class="d-flex justify-content-between">
                   <small class="form-text text-muted">浅煎り</small>
@@ -60,8 +66,14 @@
               </p>
               <p>
                 <strong>Acidity:</strong>
-                <div class="progress">
-                  <div class="progress-bar bg-primary" role="progressbar" style="width: <%= (post.bean_acidity.to_i * 25).to_s %>%" aria-valuenow="<%= post.bean_acidity.to_i %>" aria-valuemin="0" aria-valuemax="4"></div>
+                <div class="star-rating d-flex justify-content-between">
+                  <% 5.times do |i| %>
+                    <% if i < post.bean_acidity.to_i %>
+                      <span class="fa fa-star checked"></span>
+                    <% else %>
+                      <span class="fa fa-star"></span>
+                    <% end %>
+                  <% end %>
                 </div>
                 <div class="d-flex justify-content-between">
                   <small class="form-text text-muted">少</small>
@@ -71,8 +83,14 @@
               </p>
               <p>
                 <strong>Bitterness:</strong>
-                <div class="progress">
-                  <div class="progress-bar bg-danger" role="progressbar" style="width: <%= (post.bean_bitter.to_i * 25).to_s %>%" aria-valuenow="<%= post.bean_bitter.to_i %>" aria-valuemin="0" aria-valuemax="4"></div>
+                <div class="star-rating d-flex justify-content-between">
+                  <% 5.times do |i| %>
+                    <% if i < post.bean_bitter.to_i %>
+                      <span class="fa fa-star checked"></span>
+                    <% else %>
+                      <span class="fa fa-star"></span>
+                    <% end %>
+                  <% end %>
                 </div>
                 <div class="d-flex justify-content-between">
                   <small class="form-text text-muted">少</small>
@@ -95,4 +113,6 @@
     <% end %>
   </div>
 </div>
+
+
 
