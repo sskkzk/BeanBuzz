@@ -7,12 +7,23 @@
         <div class="card-body d-flex">
           <div class="user-info mr-3">
             <% if post.user %>
-              <%= link_to user_path(post.user), class: 'text-dark' do %>
-                <h5><%= post.user.name %></h5>
-                <% if post.user.user_image.attached? %>
-                  <%= image_tag post.user.user_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'User Image' %>
-                <% else %>
-                  <%= image_tag 'coffee.jpg', size: "60x60", class: 'rounded-circle', alt: 'Default User Image' %>
+              <% if current_user == post.user %>
+                <%= link_to mypage_path, class: 'text-dark' do %>
+                  <h5><%= post.user.name %></h5>
+                  <% if post.user.user_image.attached? %>
+                    <%= image_tag post.user.user_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'User Image' %>
+                  <% else %>
+                    <%= image_tag 'coffee.jpg', size: "60x60", class: 'rounded-circle', alt: 'Default User Image' %>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <%= link_to user_path(post.user), class: 'text-dark' do %>
+                  <h5><%= post.user.name %></h5>
+                  <% if post.user.user_image.attached? %>
+                    <%= image_tag post.user.user_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'User Image' %>
+                  <% else %>
+                    <%= image_tag 'coffee.jpg', size: "60x60", class: 'rounded-circle', alt: 'Default User Image' %>
+                  <% end %>
                 <% end %>
               <% end %>
             <% end %>
@@ -54,13 +65,13 @@
                     <% else %>
                       <span class="fa fa-star"></span>
                     <% end %>
-                    <% end %>
+                  <% end %>
                 </div>
-              <div class="d-flex justify-content-between">
-                <small class="form-text text-muted">少</small>
-                <small class="form-text text-muted">酸味</small>
-                <small class="form-text text-muted">多</small>
-              </div>
+                <div class="d-flex justify-content-between">
+                  <small class="form-text text-muted">控えめ</small>
+                  <small class="form-text text-muted">酸味</small>
+                  <small class="form-text text-muted">強め</small>
+                </div>
               </p>
               <p>
               <strong>Bitterness:</strong>
@@ -73,11 +84,11 @@
                     <% end %>
                   <% end %>
                 </div>
-              <div class="d-flex justify-content-between">
-                <small class="form-text text-muted">少</small>
-                <small class="form-text text-muted">苦味</small>
-                <small class="form-text text-muted">多</small>
-              </div>
+                <div class="d-flex justify-content-between">
+                  <small class="form-text text-muted">控えめ</small>
+                  <small class="form-text text-muted">苦味</small>
+                  <small class="form-text text-muted">強め</small>
+                </div>
               </p>
               <p><strong>Created At:</strong> <%= post.created_at.strftime("%Y-%m-%d") %></p>
             </div>
