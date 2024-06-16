@@ -8,10 +8,13 @@ Rails.application.routes.draw do
   get 'homes/about'
 
   resources :posts do
-    resources :comments
+    resources :comments, only: [:new, :create, :show, :edit, :update, :destroy]
   end
 
-  resources :comments
+
+resources :users do
+  resources :comments, only: [:new, :create, :show, :edit, :update, :destroy]
+end
 
   resources :follows, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   resources :favorites, only: [:index, :new, :create, :show, :edit, :update, :destroy]

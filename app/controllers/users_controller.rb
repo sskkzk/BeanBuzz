@@ -3,8 +3,9 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def mypage
-    @posts = current_user.posts
-  end
+  current_user.get_image
+  @posts = current_user.posts.includes(:comments)  # コメントを含む投稿一覧を取得
+end
   
   # GET /users
   def index

@@ -3,9 +3,7 @@ class CommentsController < ApplicationController
   before_action :set_post
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @comments = Comment.all
-  end
+ 
 
   def show
   end
@@ -21,23 +19,25 @@ class CommentsController < ApplicationController
   @comment.user = current_user
 
   if @comment.save
-    redirect_to post_path(@post), notice: 'Comment was successfully created.'
-  else
-    render 'posts/show'
+      redirect_to post_path(@post), notice: 'Comment was successfully created.'
+    else
+      render 'posts/show'
+    end
   end
-end
 
 
   def edit
+    @comment = Comment.find(params[:id])
   end
 
   def update
-    if @comment.update(comment_params)
-      redirect_to post_path(@post), notice: 'コメントを更新しました。'
-    else
-      render :edit
-    end
+  @comment = Comment.find(params[:id])
+  if @comment.update(comment_params)
+    redirect_to post_path(@comment.post), notice: 'コメントを更新しました。'
+  else
+    render :edit
   end
+end
 
   def destroy
     if @comment.user == current_user
