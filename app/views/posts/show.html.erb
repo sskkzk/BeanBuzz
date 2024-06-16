@@ -2,21 +2,14 @@
   <div class="col-md-8">
     <div class="card mb-4">
       <div class="card-header d-flex align-items-center">
-        <% if @post.user.user_image.attached? %>
+<!--画像がない場合はモデルに記載あり-->
           <%= image_tag @post.user.user_image.variant(resize_to_fill: [40, 40]).processed, class: 'rounded-circle mr-2', alt: 'User Image' %>
-        <% else %>
-          <%= image_tag 'coffee.jpg', size: "60x60", class: 'rounded-circle', alt: 'Default User Image' %>
-        <% end %>
         <h5 class="card-title m-0">
           <%= link_to @post.user.name, user_path(@post.user), class: 'text-dark' %>
         </h5>
       </div>
       <div class="card-body">
-        <% if @post.bean_image.attached? %>
           <%= image_tag @post.bean_image.variant(resize_to_fill: [600, 600]).processed, class: 'card-img-top', alt: 'Bean Image' %>
-        <% else %>
-          <%= image_tag 'bean.jpg', size: "600x600", class: 'card-img-top', alt: 'Default Bean Image' %>
-        <% end %>
         <p class="card-text"><strong>Origin:</strong> <%= @post.bean_origin %></p>
         <p class="card-text">
           <strong>Roast:</strong> 
