@@ -5,7 +5,7 @@ class CreateComments < ActiveRecord::Migration[6.1]
       t.text :comment_body
       # 副キー
       t.integer :user_id
-      t.integer :posts_id
+      t.integer :post_id
       t.timestamps
     end
   end

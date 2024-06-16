@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def mypage
-    current_user.get_image
     @posts = current_user.posts
   end
   
@@ -14,8 +13,7 @@ class UsersController < ApplicationController
 
   # GET /users/:id
   def show
-    @user = User.find(params[:id])
-    @posts = @user.posts  # ユーザーの投稿一覧
+    @posts = @user.posts
   end
 
   # GET /users/:id/edit
@@ -40,12 +38,12 @@ class UsersController < ApplicationController
 
   private
 
-  # コールバック関数で共通のセットアップ
+  # Callback to set user
   def set_user
     @user = User.find(params[:id])
   end
 
-  # ユーザーの安全なパラメータ
+  # Strong parameters for user
   def user_params
     params.require(:user).permit(:name, :email, :user_image, :bio)
   end

@@ -8,12 +8,21 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :posts
-
-  def get_image
-    unless user_image.attached?
-      file_path = Rails.root.join('app/assets/images/coffee.jpg')
-      user_image.attach(io: File.open(file_path), filename: 'coffee.jpg', content_type: 'image/jpeg')
+  has_many :comments, dependent: :destroy
+  
+  
+   def get_image
+    if user_image.attached?
+      user_image
+    else
+      attach_default_image
     end
+  end
+  
+  def attach_default_image
+    file_path = Rails.root.join('app/assets/images/coffee.jpg')
+    user_image.attach(io: File.open(file_path), filename: 'coffee.jpg', content_type: 'image/jpeg')
     user_image
   end
+
 end

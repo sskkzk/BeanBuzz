@@ -1,15 +1,18 @@
-  <div class="row justify-content-center">
+<div class="row justify-content-center">
   <div class="col-md-8">
     <div class="card mb-4">
       <div class="card-header d-flex align-items-center">
-<!--画像がない場合はモデルに記載あり-->
-          <%= image_tag @post.user.user_image.variant(resize_to_fill: [40, 40]).processed, class: 'rounded-circle mr-2', alt: 'User Image' %>
+        <%= image_tag @post.user.get_image.variant(resize_to_fill: [40, 40]).processed, class: 'rounded-circle mr-2', alt: 'User Image' %>
         <h5 class="card-title m-0">
           <%= link_to @post.user.name, user_path(@post.user), class: 'text-dark' %>
         </h5>
       </div>
       <div class="card-body">
+        <% if @post.bean_image.attached? %>
           <%= image_tag @post.bean_image.variant(resize_to_fill: [600, 600]).processed, class: 'card-img-top', alt: 'Bean Image' %>
+        <% else %>
+          <%= image_tag 'bean.jpg', size: "600x600", class: 'card-img-top', alt: 'Default Bean Image' %>
+        <% end %>
         <p class="card-text"><strong>Origin:</strong> <%= @post.bean_origin %></p>
         <p class="card-text">
           <strong>Roast:</strong> 
@@ -64,11 +67,42 @@
         </p>
         <p class="card-text"><strong>Extraction:</strong> <%= @post.bean_extraction %></p>
         <p class="card-text"><strong>Body:</strong> <%= @post.bean_body %></p>
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between mb-4">
           <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-secondary' %>
-          <%= link_to 'Back', posts_path, class: 'btn btn-primary' %>
           <% if current_user == @post.user %>
             <%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <% end %>
+          <%= link_to 'Back', posts_path, class: 'btn btn-primary' %>
+          <% unless @post.comments.exists?(user_id: current_user.id) %>
+            <%= link_to 'New Comment', new_post_comment_path(@post), class: 'btn btn-success' %>
+          <% end %>
+        </div>
+        
+        <!-- コメント一覧の表示 -->
+        <h5>Comments</h5>
+        <div class="list-group mb-4">
+          <!-- 自分のコメント -->
+          <% if @my_comment %>
+            <div class="comment bg-light p-2 mb-2 rounded">
+              <p><strong><%= @my_comment.user.name %>:</strong> <%= @my_comment.comment_body %></p>
+              <div class="d-flex justify-content-end">
+                <%= link_to 'Edit', edit_post_comment_path(@post, @my_comment), class: 'btn btn-sm btn-secondary mr-2' %>
+                <%= link_to 'Delete', post_comment_path(@post, @my_comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-danger' %>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- その他のコメント -->
+          <% @other_comments.each do |comment| %>
+            <div class="comment bg-light p-2 mb-2 rounded">
+              <p><strong><%= comment.user.name %>:</strong> <%= comment.comment_body %></p>
+              <% if current_user == comment.user %>
+                <div class="d-flex justify-content-end">
+                  <%= link_to 'Edit', edit_post_comment_path(@post, comment), class: 'btn btn-sm btn-secondary mr-2' %>
+                  <%= link_to 'Delete', post_comment_path(@post, comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-danger' %>
+                </div>
+              <% end %>
+            </div>
           <% end %>
         </div>
       </div>

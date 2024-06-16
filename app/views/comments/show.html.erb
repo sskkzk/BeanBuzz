@@ -1,0 +1,13 @@
+コメント詳細
+<h1>コメント詳細</h1>
+<p>
+  <strong>ユーザー:</strong>
+  <%= @comment.user.name %>
+</p>
+<p>
+  <strong>コメント:</strong>
+  <%= @comment.comment_body %>
+</p>
+<%= link_to '編集', edit_post_comment_path(@comment.post, @comment) %> |
+<%= link_to '削除', post_comment_path(@comment.post, @comment), method: :delete, data: { confirm: '本当に削除しますか？' } %> |
+<%= link_to '戻る', post_path(@comment.post) %>

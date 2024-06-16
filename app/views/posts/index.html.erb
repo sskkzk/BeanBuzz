@@ -19,16 +19,22 @@
               <% else %>
                 <%= link_to user_path(post.user), class: 'text-dark' do %>
                   <h5><%= post.user.name %></h5>
-
+                  <% if post.user.user_image.attached? %>
                     <%= image_tag post.user.user_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'User Image' %>
-
+                  <% else %>
+                    <%= image_tag 'coffee.jpg', size: "60x60", class: 'rounded-circle', alt: 'Default User Image' %>
+                  <% end %>
                 <% end %>
               <% end %>
             <% end %>
           </div>
           <div class="post-content d-flex w-100">
             <div class="post-image mr-3">
+              <% if post.bean_image.attached? %>
                 <%= image_tag post.bean_image.variant(resize_to_fill: [200, 200]).processed, class: 'img-thumbnail', alt: 'Bean Image' %>
+              <% else %>
+                <%= image_tag 'bean.jpg', size: "200x200", class: 'img-thumbnail', alt: 'Default Bean Image' %>
+              <% end %>
             </div>
             <div class="post-details flex-grow-1">
               <h5 class="card-title"><%= post.bean_title %></h5>
@@ -51,7 +57,7 @@
                 </div>
               </p>
               <p>
-              <strong>Acidity:</strong>
+                <strong>Acidity:</strong>
                 <div class="star-rating d-flex justify-content-between">
                   <% 5.times do |i| %>
                     <% if i < post.bean_acidity.to_i %>
@@ -68,7 +74,7 @@
                 </div>
               </p>
               <p>
-              <strong>Bitterness:</strong>
+                <strong>Bitterness:</strong>
                 <div class="star-rating d-flex justify-content-between">
                   <% 5.times do |i| %>
                     <% if i < post.bean_bitter.to_i %>
