@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(resource_or_scope)
-    about_homes_path # サインアウト後にhomesのaboutページにリダイレクト
+    homes_about_path # サインアウト後にhomesのaboutページにリダイレクト
   end
 
   protected
