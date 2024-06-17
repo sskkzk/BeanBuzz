@@ -6,35 +6,27 @@
       <div class="card">
         <div class="card-body d-flex">
           <div class="user-info mr-3">
+            
             <% if post.user %>
               <% if current_user == post.user %>
+              
                 <%= link_to mypage_path, class: 'text-dark' do %>
                   <h5><%= post.user.name %></h5>
-                  <% if post.user.user_image.attached? %>
-                    <%= image_tag post.user.user_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'User Image' %>
-                  <% else %>
-                    <%= image_tag 'coffee.jpg', size: "60x60", class: 'rounded-circle', alt: 'Default User Image' %>
-                  <% end %>
+                  <%= image_tag post.user.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'User Image' %>
                 <% end %>
+                
               <% else %>
                 <%= link_to user_path(post.user), class: 'text-dark' do %>
                   <h5><%= post.user.name %></h5>
-                  <% if post.user.user_image.attached? %>
-                    <%= image_tag post.user.user_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'User Image' %>
-                  <% else %>
-                    <%= image_tag 'coffee.jpg', size: "60x60", class: 'rounded-circle', alt: 'Default User Image' %>
-                  <% end %>
+                  <%= image_tag post.user.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'User Image' %>
                 <% end %>
+                
               <% end %>
             <% end %>
           </div>
           <div class="post-content d-flex w-100">
             <div class="post-image mr-3">
-              <% if post.bean_image.attached? %>
-                <%= image_tag post.bean_image.variant(resize_to_fill: [200, 200]).processed, class: 'img-thumbnail', alt: 'Bean Image' %>
-              <% else %>
-                <%= image_tag 'bean.jpg', size: "200x200", class: 'img-thumbnail', alt: 'Default Bean Image' %>
-              <% end %>
+              <%= image_tag post.get_image.variant(resize_to_fill: [200, 200]).processed, class: 'img-thumbnail', alt: 'Bean Image' %>
             </div>
             <div class="post-details flex-grow-1">
               <h5 class="card-title"><%= post.bean_title %></h5>

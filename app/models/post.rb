@@ -15,7 +15,7 @@ class Post < ApplicationRecord
     where("bean_title LIKE ?", "%#{query}%")
   end
   
-   def get_image
+  def get_image
     if bean_image.attached?
       bean_image
     else

@@ -1,8 +1,0 @@
-コメント一覧
-<h1>コメント一覧</h1>
-<% @comments.each do |comment| %>
-  <p>
-    <strong><%= comment.user.name %>:</strong>
-    <%= link_to comment.comment_body, comment_path(comment) %>
-  </p>
-<% end %>

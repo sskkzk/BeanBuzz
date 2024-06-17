@@ -8,14 +8,10 @@
         </h5>
       </div>
       <div class="card-body">
-        <% if @post.bean_image.attached? %>
-          <%= image_tag @post.bean_image.variant(resize_to_fill: [600, 600]).processed, class: 'card-img-top', alt: 'Bean Image' %>
-        <% else %>
-          <%= image_tag 'bean.jpg', size: "600x600", class: 'card-img-top', alt: 'Default Bean Image' %>
-        <% end %>
+        <%= image_tag @post.get_image.variant(resize_to_fill: [600, 600]).processed, class: 'card-img-top', alt: 'Bean Image' %>
         <p class="card-text"><strong>Origin:</strong> <%= @post.bean_origin %></p>
         <p class="card-text">
-          <strong>Roast:</strong> 
+          <strong>Roast:</strong>
           <div class="star-rating d-flex justify-content-between">
             <% 5.times do |i| %>
               <% if i < @post.bean_roast.to_i %>
@@ -32,7 +28,7 @@
           </div>
         </p>
         <p class="card-text">
-          <strong>Acidity:</strong> 
+          <strong>Acidity:</strong>
           <div class="star-rating d-flex justify-content-between">
             <% 5.times do |i| %>
               <% if i < @post.bean_acidity.to_i %>
@@ -49,7 +45,7 @@
           </div>
         </p>
         <p class="card-text">
-          <strong>Bitterness:</strong> 
+          <strong>Bitterness:</strong>
           <div class="star-rating d-flex justify-content-between">
             <% 5.times do |i| %>
               <% if i < @post.bean_bitter.to_i %>
@@ -68,8 +64,8 @@
         <p class="card-text"><strong>Extraction:</strong> <%= @post.bean_extraction %></p>
         <p class="card-text"><strong>Body:</strong> <%= @post.bean_body %></p>
         <div class="d-flex justify-content-between mb-4">
-          <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-secondary' %>
           <% if current_user == @post.user %>
+            <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-secondary' %>
             <%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
           <% end %>
           <%= link_to 'Back', posts_path, class: 'btn btn-primary' %>
@@ -77,7 +73,7 @@
             <%= link_to 'New Comment', new_post_comment_path(@post), class: 'btn btn-success' %>
           <% end %>
         </div>
-        
+
         <!-- コメント一覧の表示 -->
         <h5>Comments</h5>
         <div class="list-group mb-4">
