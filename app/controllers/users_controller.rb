@@ -3,9 +3,9 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def mypage
-  current_user.get_image
-  @posts = current_user.posts.includes(:comments)  # コメントを含む投稿一覧を取得
-end
+    current_user.get_image
+    @posts = current_user.posts.includes(:comments)
+  end
   
   # GET /users
   def index
@@ -14,7 +14,7 @@ end
 
   # GET /users/:id
   def show
-    @posts = @user.posts
+    @posts = @user.posts  
   end
 
   # GET /users/:id/edit
@@ -46,6 +46,6 @@ end
 
   # Strong parameters for user
   def user_params
-    params.require(:user).permit(:name, :email, :user_image, :bio)
+    params.require(:user).permit(:name, :email, :user_image,)
   end
 end
