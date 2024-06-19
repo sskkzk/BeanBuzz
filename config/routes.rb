@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
+  
+  # 管理者設定
+  devise_for :admin, skip: [:registrations, :password], controllers: {
+    sessions: 'admin/sessions'
+  }
+  
 
   get '/mypage', to: 'users#mypage', as: 'mypage'
   resources :users, except: [:new, :create]
