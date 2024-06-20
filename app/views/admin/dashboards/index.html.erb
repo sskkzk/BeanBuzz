@@ -2,8 +2,9 @@
 <ul>
   <% @users.each do |user| %>
     <li>
-      <%= user.name %> - <%= user.email %>
+      <%= user.name %> - <%= user.email %> - <%= user.status ? '現役' : '退会済み' %>
       <%= link_to '削除', admin_user_path(user), method: :delete, data: { confirm: '本当に削除しますか？' } %> 
+      <%= link_to (user.status ? '退会させる' : '現役にする'), toggle_status_admin_user_path(user), method: :post, data: { confirm: 'ステータスを変更しますか？' } %>
     </li>
   <% end %>
 </ul>

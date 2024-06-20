@@ -6,9 +6,13 @@ Rails.application.routes.draw do
   }
 
   namespace :admin do
-    get 'dashboards', to: 'dashboards#index'
+    resources :dashboards, only: [:index]
     
-    resources :users, only: [:destroy] # ここを追加
+    resources :users, only: [:destroy] do
+      member do
+        post :toggle_status
+      end
+    end
   end
 
   # ユーザー認証
