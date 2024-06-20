@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
   # 管理者設定
-  devise_for :admins, skip: [:registrations, :password], controllers: {
+  devise_for :admin, skip: [:registrations, :password], controllers: {
     sessions: 'admin/sessions',
     registrations: 'admin/registrations'
   }
 
   namespace :admin do
     get 'dashboards', to: 'dashboards#index'
+    
+    resources :users, only: [:destroy] # ここを追加
   end
 
   # ユーザー認証

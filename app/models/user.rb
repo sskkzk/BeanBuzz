@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   
   
-   def get_image
+  def get_image
     if user_image.attached?
       user_image
     else
