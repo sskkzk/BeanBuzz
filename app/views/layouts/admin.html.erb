@@ -8,11 +8,6 @@
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
-  <% if admin_signed_in? %>
-    <div class="text-right">
-      <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %>
-    </div>
-  <% end %>
   <div class="container mt-4">
   <%= yield %>
   </div>
