@@ -1,8 +1,12 @@
   <div class="row">
     <div class="col">
-      <h1 class="text-center mt-5">ようこそBeanBuzzへ！</h1>
+    <h1 class="text-center mt-5 mb-5">
+      <span class="material-symbols-outlined" style="font-size: 50px; vertical-align: middle;">coffee_maker</span>
+      <span style="vertical-align: middle;">ようこそ<b>BeanBuzz</b>へ！</span>
+    </h1>
     </div>
   </div>
+  
   <% if user_signed_in? %>
   <div class="row mt-4 mb-4 justify-content-center">
     <div class="col-8">
@@ -21,7 +25,7 @@
       <%= link_to 'Log in', new_user_session_path, class: 'btn btn-primary btn-lg btn-block' %>
     </div>
   </div>
-  <div class="row mt-4 justify-content-center">
+  <div class="row mt-4 mb-5 justify-content-center">
     <div class="col-8">
       <%= link_to 'まずはお試し！', '/posts/index', class: 'btn btn-info btn-lg btn-block' %>
     </div>

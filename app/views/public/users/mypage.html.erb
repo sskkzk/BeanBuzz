@@ -20,7 +20,7 @@
         <h2>ユーザー情報</h2>
         <div class="card">
           <div class="card-body text-center">
-           <%= image_tag current_user.get_image.variant(resize_to_fill: [300, 300]).processed, class: 'rounded-circle', alt: 'User Image' %>
+            <%= image_tag current_user.get_image.variant(resize_to_fill: [300, 300]).processed, class: 'rounded-circle', alt: 'User Image' %>
             <h5 class="card-title mt-3"><%= current_user.name %></h5>
             <p class="card-text"><strong>Email:</strong> <%= current_user.email %></p>
             <p class="card-text"><strong>Introduction:</strong> <%= current_user.introduction %></p>
@@ -31,7 +31,7 @@
 
       <div class="col-md-8">
         <h2>投稿一覧</h2>
-        <% current_user.posts.each do |post| %>
+        <% @posts.each do |post| %>
           <div class="card mb-4">
             <div class="card-body">
               <div class="d-flex">
@@ -117,6 +117,10 @@
             </div>
           </div>
         <% end %>
+
+        <div class="d-flex justify-content-center mt-4">
+          <%= paginate @posts %>
+        </div>
         
       </div>
     </div>
@@ -139,7 +143,7 @@
 
       <div class="col-md-8">
         <h2>コメント一覧</h2>
-        <% current_user.comments.each do |comment| %>
+        <% @comments.each do |comment| %>
           <div class="card mb-4">
             <div class="card-body">
               <!-- コメントの表示 -->
@@ -153,11 +157,14 @@
             </div>
           </div>
         <% end %>
+
+        <div class="d-flex justify-content-center mt-4">
+          <%= paginate @comments %>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
 
 
 

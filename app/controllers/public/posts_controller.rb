@@ -5,7 +5,7 @@ class Public::PostsController < ApplicationController
     if params[:search]
       @posts = Post.search(params[:search])
     else
-      @posts = Post.all
+     @posts = Post.page(params[:page]).per(10)
     end
   end
 

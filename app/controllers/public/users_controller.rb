@@ -4,7 +4,8 @@ class Public::UsersController < ApplicationController
 
   def mypage
     current_user.get_image
-    @posts = current_user.posts.includes(:comments)
+    @posts = current_user.posts.includes(:comments).page(params[:post_page]).per(5)
+    @comments = current_user.comments.page(params[:comment_page]).per(5)
   end
   
   # GET /users

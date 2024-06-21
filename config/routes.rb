@@ -23,10 +23,11 @@ Rails.application.routes.draw do
   }
 
   scope module: :public do
+    
     get '/mypage', to: 'users#mypage', as: 'mypage'
-    get 'homes/top', as: 'homes_top'
-    get 'homes/about', as: 'homes_about'
-
+    root to: 'homes#top'
+    get '/about', to: 'homes#about', as: 'about', without_authentication: true
+    
     resources :posts do
       resources :comments, only: [:new, :create, :edit, :update, :destroy]
     end
@@ -36,8 +37,5 @@ Rails.application.routes.draw do
     resources :follows, only: [:index, :new, :create, :show, :edit, :update, :destroy]
     resources :favorites, only: [:index, :new, :create, :show, :edit, :update, :destroy]
 
-    root to: 'homes#top'
-    get '/about', to: 'homes#about', as: 'about'
   end
 end
-
