@@ -1,11 +1,11 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
- 
+
   def index
     if params[:search]
       @posts = Post.search(params[:search])
     else
-     @posts = Post.page(params[:page]).per(10)
+      @posts = Post.page(params[:page]).per(10)
     end
   end
 
@@ -23,7 +23,7 @@ class Public::PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      redirect_to @post, notice: 'Post was successfully created.'
+      redirect_to @post, notice: '投稿が正常に作成されました。'
     else
       render :new
     end
@@ -36,7 +36,7 @@ class Public::PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      redirect_to @post, notice: 'Post was successfully updated.'
+      redirect_to @post, notice: '投稿が正常に更新されました。'
     else
       render :edit
     end
@@ -45,7 +45,7 @@ class Public::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to posts_url, notice: 'Post was successfully destroyed.'
+    redirect_to posts_url, notice: '投稿が正常に削除されました。'
   end
 
   private
@@ -53,5 +53,5 @@ class Public::PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:bean_origin, :bean_roast, :bean_acidity, :bean_bitter, :bean_extraction, :bean_title, :bean_body, :bean_image)
   end
-  
 end
+

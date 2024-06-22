@@ -22,14 +22,30 @@
     <%= render 'public/shared/header' %>
     <div class="container px-sm-0">
       <div class="row">
-<!--各ページ内容を読むため-->
-      <%= notice %>
-      <%= alert %>
+        <% if notice.present? %>
+          <div class="col-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <%= notice %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+        <% end %>
+        <% if alert.present? %>
+          <div class="col-12">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <%= alert %>
+              <button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
+
+
     <div class="container mt-4">
       <%= yield %>
     </div>
     <%= render 'public/shared/footer' %>
+    
   </body>
 </html>
