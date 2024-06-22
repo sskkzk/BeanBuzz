@@ -71,3 +71,18 @@ gem "net-pop"
 gem "net-imap"
 
 gem 'kaminari'
+
+# git clone 後は
+ 
+# bundle install で gem関連をインストール
+# yarn install で bootstarapを
+# rails db:migrate で モデルを
+# 最後にrails s
+
+
+
+# ------
+
+
+# git status で 現在の状況を確認して
+# git restore . で 全て無かったことにするほうが恐らく手っ取り早いです！
