@@ -32,7 +32,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:new, :create, :edit, :update, :destroy]
     end
 
-    resources :users, only: [:index, :show, :edit, :update, :destroy]
+    resources :users, only: [:index, :show, :update, :destroy]
 
     resources :follows, only: [:index, :new, :create, :show, :edit, :update, :destroy]
     resources :favorites, only: [:index, :new, :create, :show, :edit, :update, :destroy]

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class DeviseCreateUsers < ActiveRecord::Migration[6.1]
   def change
     create_table :users do |t|
@@ -36,7 +34,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       #自己紹介
       t.string :introduction
       # 真偽
-      t.boolean :status
+      t.boolean :status, default: true  # デフォルト値をtrueに設定
       
       t.timestamps null: false
     end

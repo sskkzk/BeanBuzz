@@ -1,16 +1,13 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  
-  scope :active, -> { where(active: true) }
-  scope :blocked, -> { where(active: false) }
+  scope :active, -> { where(status: true) }
+  scope :blocked, -> { where(status: false) }
   
   has_one_attached :user_image
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  has_many :posts
+  has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   
   validate :active_user, on: :create
@@ -31,8 +28,8 @@ class User < ApplicationRecord
   
   private
   
-  def active_user
-    errors.add(:base, 'このアカウントはブロックされています。') unless active
-  end
+ def active_user
+  errors.add(:base, 'このアカウントはブロックされています。') unless status
+ end
 end
 

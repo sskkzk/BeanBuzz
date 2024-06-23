@@ -59,4 +59,28 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+  
+  before_action :configure_account_update_params, only: [:update]
+
+  protected
+
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :introduction])
+  end
+
+  # パスワードを変更しない場合には current_password を要求しない
+  def update_resource(resource, params)
+    if params[:password].blank? && params[:password_confirmation].blank?
+      resource.update_without_password(params.except(:current_password))
+    else
+      resource.update_with_password(params)
+    end
+  end
+  
+  # 編集成功後にmypageにリダイレクトする
+  def after_update_path_for(resource)
+    mypage_path
+  end
+  
+  
 end
