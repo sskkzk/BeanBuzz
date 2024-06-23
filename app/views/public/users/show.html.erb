@@ -32,6 +32,7 @@
 
       <div class="col-md-8">
         <h2>投稿一覧</h2>
+        <% if @posts.any? %>
         <% @user.posts.each do |post| %>
           <div class="card mb-4">
             <div class="card-body">
@@ -122,6 +123,11 @@
             </div>
           </div>
         <% end %>
+        <% else %>
+          <div class="col-md-12 text-center">
+            <h2><span class="material-symbols-outlined" style="font-size: 40px; vertical-align: middle;">info</span><span style="vertical-align: middle;">まだ投稿がありません</span></h2>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
@@ -142,6 +148,7 @@
 
       <div class="col-md-8">
         <h2>コメント一覧</h2>
+        <% if @comments.any? %>
         <% @user.comments.each do |comment| %>
           <div class="card mb-4">
             <div class="card-body">
@@ -157,6 +164,11 @@
               <% end %>
               </div>
             </div>
+          </div>
+        <% end %>
+        <% else %>
+          <div class="col-md-12 text-center">
+            <h2><span class="material-symbols-outlined" style="font-size: 40px; vertical-align: middle;">info</span><span style="vertical-align: middle;">まだコメントを残していません。</span></h2>
           </div>
         <% end %>
       </div>
