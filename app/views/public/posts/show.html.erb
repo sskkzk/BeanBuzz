@@ -89,16 +89,22 @@
           <% end %>
 
           <!-- その他のコメント -->
-          <% @other_comments.each do |comment| %>
-            <div class="comment bg-light p-2 mb-2 rounded">
-              <p><strong><%= comment.user.name %>:</strong> <%= comment.comment_body %></p>
-              <% if current_user == comment.user %>
-                <div class="d-flex justify-content-end">
-                  <%= link_to 'Edit', edit_post_comment_path(@post, comment), class: 'btn btn-sm btn-secondary mr-2' %>
-                  <%= link_to 'Delete', post_comment_path(@post, comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-danger' %>
-                </div>
-              <% end %>
-            </div>
+          <% if @other_comments.any? %>
+            <% @other_comments.each do |comment| %>
+              <div class="comment bg-light p-2 mb-2 rounded">
+                <p><strong><%= comment.user.name %>:</strong> <%= comment.comment_body %></p>
+                <% if current_user == comment.user %>
+                  <div class="d-flex justify-content-end">
+                    <%= link_to 'Edit', edit_post_comment_path(@post, comment), class: 'btn btn-sm btn-secondary mr-2' %>
+                    <%= link_to 'Delete', post_comment_path(@post, comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-danger' %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          <% else %>
+          <div class="col-md-12 text-center">
+            <h2><span class="material-symbols-outlined" style="font-size: 40px; vertical-align: middle;">info</span><span style="vertical-align: middle;">まだコメントがありません。</span></h2>
+          </div>
           <% end %>
         </div>
       </div>

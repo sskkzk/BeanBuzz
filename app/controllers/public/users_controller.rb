@@ -15,11 +15,13 @@ class Public::UsersController < ApplicationController
 
   # GET /users/:id
   def show
+    @user = User.find(params[:id])
     @posts = @user.posts  
   end
 
   # GET /users/:id/edit
   def edit
+    @user = current_user
     redirect_to root_path, alert: 'Access denied.' unless @user == current_user
   end
 

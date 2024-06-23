@@ -1,15 +1,16 @@
-<h2 class="text-center my-4"><%= resource_name.to_s.humanize %>の編集</h2>
+<!-- app/views/devise/registrations/edit.html.erb -->
+<h2 class="text-center my-4">プロフィールの編集</h2>
 
 <div class="row justify-content-center">
   <div class="col-md-8">
     <div class="card">
       <div class="card-body">
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-          <%= render "devise/shared/error_messages", resource: resource %>
+        <%= form_for(@user, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: @user %>
 
-          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <% if devise_mapping.confirmable? && @user.pending_reconfirmation? %>
             <div class="alert alert-warning">
-              現在、以下のメールアドレスの確認待ちです: <%= resource.unconfirmed_email %>
+              現在、以下のメールアドレスの確認待ちです: <%= @user.unconfirmed_email %>
             </div>
           <% end %>
 
@@ -21,6 +22,16 @@
           <div class="mb-3">
             <%= f.label :introduction, "紹介文", class: "form-label" %>
             <%= f.text_area :introduction, class: "form-control", rows: 3 %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :user_image, "プロフィール画像(画像中央が使用されます)", class: "form-label" %>
+            <%= f.file_field :user_image, class: "form-control", accept: "image/*" %>
+            <% if @user.user_image.attached? %>
+              <%= image_tag url_for(@user.user_image), class: "img-thumbnail", alt: "プロフィール画像" %>
+            <% else %>
+              <%= image_tag asset_path('default_profile_image.jpg'), class: "img-thumbnail", alt: "デフォルトのプロフィール画像" %>
+            <% end %>
           </div>
 
           <div class="mb-3">
@@ -52,9 +63,9 @@
 
     <div class="card mt-4">
       <div class="card-body text-center">
-        <h3>アカウントをキャンセルする</h3>
+        <h3>アカウントを削除する</h3>
         <p>不満がありますか？</p>
-        <%= button_to "アカウントをキャンセルする", registration_path(resource_name), class: "btn btn-danger", data: { confirm: "本当にキャンセルしますか？", turbo_confirm: "本当にキャンセルしますか？" }, method: :delete %>
+        <%= button_to "アカウントを削除する", registration_path(resource_name), class: "btn btn-danger", data: { confirm: "本当に削除しますか？", turbo_confirm: "本当に削除しますか？" }, method: :delete %>
       </div>
     </div>
 
@@ -63,4 +74,5 @@
     </div>
   </div>
 </div>
+
 

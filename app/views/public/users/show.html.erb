@@ -148,7 +148,7 @@
 
       <div class="col-md-8">
         <h2>コメント一覧</h2>
-        <% if @comments.any? %>
+        <% if @user.comments.any? %>
         <% @user.comments.each do |comment| %>
           <div class="card mb-4">
             <div class="card-body">
