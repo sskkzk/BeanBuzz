@@ -69,47 +69,45 @@
             <%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
           <% end %>
           <%= link_to 'Back', posts_path, class: 'btn btn-primary' %>
-          <% unless @post.comments.exists?(user_id: current_user.id) %>
-            <%= link_to 'New Comment', new_post_comment_path(@post), class: 'btn btn-success' %>
-          <% end %>
+          <%= link_to 'New Comment', new_post_comment_path(@post), class: 'btn btn-success' %>
         </div>
 
         <!-- コメント一覧の表示 -->
         <h5>Comments</h5>
         <div class="list-group mb-4">
-          <!-- 自分のコメント -->
-          <% if @my_comment %>
-            <div class="comment bg-light p-2 mb-2 rounded">
-              <p><strong><%= @my_comment.user.name %>:</strong> <%= @my_comment.comment_body %></p>
-              <div class="d-flex justify-content-end">
-                <%= link_to 'Edit', edit_post_comment_path(@post, @my_comment), class: 'btn btn-sm btn-secondary mr-2' %>
-                <%= link_to 'Delete', post_comment_path(@post, @my_comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-danger' %>
-              </div>
+          <!-- コメントがない場合のメッセージ -->
+          <% if @post.comments.empty? %>
+            <div class="col-md-12 text-center">
+              <h2><span class="material-symbols-outlined" style="font-size: 40px; vertical-align: middle;">info</span><span style="vertical-align: middle;">まだコメントがありません。</span></h2>
             </div>
-          <% end %>
-
-          <!-- その他のコメント -->
-          <% if @other_comments.any? %>
-            <% @other_comments.each do |comment| %>
+          <% else %>
+            <% @post.comments.each do |comment| %>
               <div class="comment bg-light p-2 mb-2 rounded">
                 <p><strong><%= comment.user.name %>:</strong> <%= comment.comment_body %></p>
-                <% if current_user == comment.user %>
-                  <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-end">
+                  <% if current_user == comment.user %>
                     <%= link_to 'Edit', edit_post_comment_path(@post, comment), class: 'btn btn-sm btn-secondary mr-2' %>
                     <%= link_to 'Delete', post_comment_path(@post, comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-danger' %>
-                  </div>
-                <% end %>
+                  <% end %>
+                </div>
               </div>
             <% end %>
-          <% else %>
-          <div class="col-md-12 text-center">
-            <h2><span class="material-symbols-outlined" style="font-size: 40px; vertical-align: middle;">info</span><span style="vertical-align: middle;">まだコメントがありません。</span></h2>
-          </div>
           <% end %>
         </div>
+
+        <!-- コメントフォーム -->
+        <h5>新しいコメント</h5>
+        <%= form_with(model: [ @post, Comment.new ], local: true) do |form| %>
+          <div class="form-group">
+            <%= form.label :comment_body, "コメント" %>
+            <%= form.text_area :comment_body, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= form.submit "コメントを追加", class: "btn btn-success" %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
-
 

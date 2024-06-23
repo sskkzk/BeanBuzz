@@ -12,8 +12,8 @@ class Public::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @post.get_image
-    @my_comment = @post.comments.find_by(user_id: current_user.id) if user_signed_in?
-    @other_comments = @post.comments.where.not(user_id: current_user.id)
+    @comments = @post.comments.includes(:user) # すべてのコメントを取得
+    @comment = Comment.new
   end
 
   def new

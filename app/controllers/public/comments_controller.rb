@@ -1,43 +1,34 @@
 class Public::CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
-
- 
-
-  def show
-  end
+  before_action :set_comment, only: [:edit, :update, :destroy]
 
   def new
     @comment = @post.comments.new
-    
   end
 
   def create
-  @post = Post.find(params[:post_id])
-  @comment = @post.comments.build(comment_params)
-  @comment.user = current_user
+    @comment = @post.comments.build(comment_params)
+    @comment.user = current_user
 
     if @comment.save
       redirect_to post_path(@post), notice: 'Comment was successfully created.'
     else
-      render 'posts/show'
+      @comments = @post.comments.includes(:user)
+      render 'public/posts/show'
     end
   end
 
-
   def edit
-    @comment = Comment.find(params[:id])
   end
 
   def update
-  @comment = Comment.find(params[:id])
-  if @comment.update(comment_params)
-    redirect_to post_path(@comment.post), notice: 'コメントを更新しました。'
-  else
-    render :edit
+    if @comment.update(comment_params)
+      redirect_to post_path(@comment.post), notice: 'コメントを更新しました。'
+    else
+      render :edit
+    end
   end
-end
 
   def destroy
     if @comment.user == current_user
@@ -64,3 +55,4 @@ end
     params.require(:comment).permit(:comment_body)
   end
 end
+
