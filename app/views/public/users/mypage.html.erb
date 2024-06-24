@@ -1,6 +1,6 @@
 <div class="row mb-4">
   <div class="col-md-6">
-    <h1>My Page</h1>
+    <h1>マイページ</h1>
   </div>
 </div>
 
@@ -20,11 +20,11 @@
         <h2>ユーザー情報</h2>
         <div class="card">
           <div class="card-body text-center">
-            <%= image_tag current_user.get_image.variant(resize_to_fill: [300, 300]).processed, class: 'rounded-circle', alt: 'User Image' %>
+            <%= image_tag current_user.get_image.variant(resize_to_fill: [300, 300]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
             <h5 class="card-title mt-3"><%= current_user.name %></h5>
-            <p class="card-text"><strong>Email:</strong> <%= current_user.email %></p>
-            <p class="card-text"><strong>Introduction:</strong> <%= current_user.introduction %></p>
-            <%= link_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-secondary' %>
+            <p class="card-text"><strong>メールアドレス:</strong> <%= current_user.email %></p>
+            <p class="card-text"><strong>自己紹介:</strong> <%= current_user.introduction %></p>
+            <%= link_to 'プロフィールを編集', edit_user_registration_path, class: 'btn btn-secondary' %>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
             <div class="card-body">
               <div class="d-flex">
                 <div class="user-info mr-3">
-                  <%= image_tag post.user.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'User Image' %>
+                  <%= image_tag post.user.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
                 </div>
                 <div>
                   <h5><%= post.user.name %></h5>
@@ -46,16 +46,16 @@
               <div class="d-flex mt-3">
                 <div class="post-image mr-3 d-flex justify-content-center align-items-center">
                   <% if post.bean_image.attached? %>
-                    <%= image_tag post.bean_image.variant(resize_to_fill: [200, 200]).processed, class: 'img-thumbnail', alt: 'Bean Image' %>
+                    <%= image_tag post.bean_image.variant(resize_to_fill: [200, 200]).processed, class: 'img-thumbnail', alt: 'コーヒー豆画像' %>
                   <% else %>
-                    <%= image_tag 'bean.jpg', size: "200x200", class: 'img-thumbnail', alt: 'Default Bean Image' %>
+                    <%= image_tag 'bean.jpg', size: "200x200", class: 'img-thumbnail', alt: 'デフォルトのコーヒー豆画像' %>
                   <% end %>
                 </div>
                 <div class="post-details flex-grow-1 align-items-center">
                   <h5 class="card-title"><%= post.bean_title %></h5>
-                  <p><strong>Origin:</strong> <%= post.bean_origin %></p>
+                  <p><strong>原産地:</strong> <%= post.bean_origin %></p>
                   <p>
-                    <strong>Roast:</strong>
+                    <strong>焙煎度:</strong>
                     <div class="star-rating d-flex justify-content-between">
                       <% 5.times do |i| %>
                         <% if i < post.bean_roast.to_i %>
@@ -72,7 +72,7 @@
                     </div>
                   </p>
                   <p>
-                    <strong>Acidity:</strong>
+                    <strong>酸味:</strong>
                     <div class="star-rating d-flex justify-content-between">
                       <% 5.times do |i| %>
                         <% if i < post.bean_acidity.to_i %>
@@ -89,7 +89,7 @@
                     </div>
                   </p>
                   <p>
-                    <strong>Bitterness:</strong>
+                    <strong>苦味:</strong>
                     <div class="star-rating d-flex justify-content-between">
                       <% 5.times do |i| %>
                         <% if i < post.bean_bitter.to_i %>
@@ -105,13 +105,13 @@
                       <small class="form-text text-muted">多</small>
                     </div>
                   </p>
-                  <p><strong>Extraction:</strong> <%= post.bean_extraction %></p>
-                  <p><strong>Body:</strong> <%= post.bean_body %></p>
-                  <p><strong>Created At:</strong> <%= post.created_at.strftime("%Y-%m-%d") %></p>
+                  <p><strong>抽出方法:</strong> <%= post.bean_extraction %></p>
+                  <p><strong>ボディ:</strong> <%= post.bean_body %></p>
+                  <p><strong>投稿日:</strong> <%= post.created_at.strftime("%Y-%m-%d") %></p>
                   <div class="d-flex justify-content-between mt-2">
-                    <%= link_to 'Show', post, class: 'btn btn-primary' %>
-                    <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-secondary' %>
-                    <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+                    <%= link_to '詳細', post, class: 'btn btn-primary' %>
+                    <%= link_to '編集', edit_post_path(post), class: 'btn btn-secondary' %>
+                    <%= link_to '削除', post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
                   </div>
                 </div>
               </div>
@@ -138,11 +138,11 @@
         <h2>ユーザー情報</h2>
         <div class="card">
           <div class="card-body text-center">
-            <%= image_tag current_user.get_image.variant(resize_to_fill: [300, 300]).processed, class: 'rounded-circle', alt: 'User Image' %>
+            <%= image_tag current_user.get_image.variant(resize_to_fill: [300, 300]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
             <h5 class="card-title mt-3"><%= current_user.name %></h5>
-            <p class="card-text"><strong>Email:</strong> <%= current_user.email %></p>
-            <p class="card-text"><strong>Introduction:</strong> <%= current_user.introduction %></p>
-            <%= link_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-secondary' %>
+            <p class="card-text"><strong>メールアドレス:</strong> <%= current_user.email %></p>
+            <p class="card-text"><strong>自己紹介:</strong> <%= current_user.introduction %></p>
+            <%= link_to 'プロフィールを編集', edit_user_registration_path, class: 'btn btn-secondary' %>
           </div>
         </div>
       </div>
@@ -156,10 +156,10 @@
               <!-- コメントの表示 -->
               <p><strong>投稿:</strong> <%= link_to comment.post.bean_title, post_path(comment.post) %></p>
               <p><%= comment.comment_body %></p>
-              <p><strong>Created At:</strong> <%= comment.created_at.strftime("%Y-%m-%d") %></p>
+              <p><strong>投稿日:</strong> <%= comment.created_at.strftime("%Y-%m-%d") %></p>
               <div class="d-flex justify-content-between mt-2">
-                <%= link_to 'Edit', edit_post_comment_path(comment.post, comment), class: 'btn btn-sm btn-secondary mr-2' %>
-                <%= link_to 'Destroy', post_comment_path(comment.post, comment), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+                <%= link_to '編集', edit_post_comment_path(comment.post, comment), class: 'btn btn-sm btn-secondary mr-2' %>
+                <%= link_to '削除', post_comment_path(comment.post, comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
               </div>
             </div>
           </div>
@@ -176,6 +176,7 @@
     </div>
   </div>
 </div>
+
 
 
 

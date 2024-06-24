@@ -1,103 +1,101 @@
-<h1>Posts</h1>
+<!-- app/views/public/posts/index.html.erb -->
+
+<h1>投稿一覧</h1>
 
 <div class="row mt-4">
   <% if @posts.any? %>
-  <% @posts.each do |post| %>
-    <div class="col-md-6 mb-4">
-      <div class="card">
-        <div class="card-body d-flex">
-          <div class="user-info mr-3">
-            <% if post.user %>
-              <% if current_user == post.user %>
-                <%= link_to mypage_path, class: 'text-dark' do %>
-                  <h5><%= post.user.name %></h5>
-                  <%= image_tag post.user.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'User Image' %>
-                <% end %>
-              <% else %>
-                <%= link_to user_path(post.user), class: 'text-dark' do %>
-                  <h5><%= post.user.name %></h5>
-                  <%= image_tag post.user.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'User Image' %>
+    <% @posts.each do |post| %>
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body d-flex">
+            <div class="user-info mr-3">
+              <% if post.user %>
+                <% if current_user == post.user %>
+                  <%= link_to mypage_path, class: 'text-dark' do %>
+                    <h5><%= post.user.name %></h5>
+                    <%= image_tag post.user.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
+                  <% end %>
+                <% else %>
+                  <%= link_to user_path(post.user), class: 'text-dark' do %>
+                    <h5><%= post.user.name %></h5>
+                    <%= image_tag post.user.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
+                  <% end %>
                 <% end %>
               <% end %>
-            <% end %>
-          </div>
-          <div class="post-content d-flex w-100">
-            <div class="post-image mr-3">
-              <%= image_tag post.get_image.variant(resize_to_fill: [200, 200]).processed, class: 'img-thumbnail', alt: 'Bean Image' %>
             </div>
-            <div class="post-details flex-grow-1">
-              <h5 class="card-title"><%= post.bean_title %></h5>
-              <p><strong>Origin:</strong> <%= post.bean_origin %></p>
-              <p>
-                <strong>Roast:</strong>
-                <div class="star-rating d-flex justify-content-between">
-                  <% 5.times do |i| %>
-                    <% if i < post.bean_roast.to_i %>
-                      <span class="fa fa-star checked"></span>
-                    <% else %>
-                      <span class="fa fa-star"></span>
+            <div class="post-content d-flex w-100">
+              <div class="post-image mr-3">
+                <%= image_tag post.get_image.variant(resize_to_fill: [200, 200]).processed, class: 'img-thumbnail', alt: 'コーヒー豆画像' %>
+              </div>
+              <div class="post-details flex-grow-1">
+                <h5 class="card-title"><%= post.bean_title %></h5>
+                <p><strong>原産地:</strong> <%= post.bean_origin %></p>
+                <p>
+                  <strong>焙煎度:</strong>
+                  <div class="star-rating d-flex justify-content-between">
+                    <% 5.times do |i| %>
+                      <% if i < post.bean_roast.to_i %>
+                        <span class="fa fa-star checked"></span>
+                      <% else %>
+                        <span class="fa fa-star"></span>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                </div>
-                <div class="d-flex justify-content-between">
-                  <small class="form-text text-muted">浅煎り</small>
-                  <small class="form-text text-muted">中煎り</small>
-                  <small class="form-text text-muted">深煎り</small>
-                </div>
-              </p>
-              <p>
-                <strong>Acidity:</strong>
-                <div class="star-rating d-flex justify-content-between">
-                  <% 5.times do |i| %>
-                    <% if i < post.bean_acidity.to_i %>
-                      <span class="fa fa-star checked"></span>
-                    <% else %>
-                      <span class="fa fa-star"></span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <small class="form-text text-muted">浅煎り</small>
+                    <small class="form-text text-muted">中煎り</small>
+                    <small class="form-text text-muted">深煎り</small>
+                  </div>
+                </p>
+                <p>
+                  <strong>酸味:</strong>
+                  <div class="star-rating d-flex justify-content-between">
+                    <% 5.times do |i| %>
+                      <% if i < post.bean_acidity.to_i %>
+                        <span class="fa fa-star checked"></span>
+                      <% else %>
+                        <span class="fa fa-star"></span>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                </div>
-                <div class="d-flex justify-content-between">
-                  <small class="form-text text-muted">控えめ</small>
-                  <small class="form-text text-muted">酸味</small>
-                  <small class="form-text text-muted">強め</small>
-                </div>
-              </p>
-              <p>
-                <strong>Bitterness:</strong>
-                <div class="star-rating d-flex justify-content-between">
-                  <% 5.times do |i| %>
-                    <% if i < post.bean_bitter.to_i %>
-                      <span class="fa fa-star checked"></span>
-                    <% else %>
-                      <span class="fa fa-star"></span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <small class="form-text text-muted">控えめ</small>
+                    <small class="form-text text-muted">酸味</small>
+                    <small class="form-text text-muted">強め</small>
+                  </div>
+                </p>
+                <p>
+                  <strong>苦味:</strong>
+                  <div class="star-rating d-flex justify-content-between">
+                    <% 5.times do |i| %>
+                      <% if i < post.bean_bitter.to_i %>
+                        <span class="fa fa-star checked"></span>
+                      <% else %>
+                        <span class="fa fa-star"></span>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                </div>
-                <div class="d-flex justify-content-between">
-                  <small class="form-text text-muted">控えめ</small>
-                  <small class="form-text text-muted">苦味</small>
-                  <small class="form-text text-muted">強め</small>
-                </div>
-              </p>
-              <p><strong>Created At:</strong> <%= post.created_at.strftime("%Y-%m-%d") %></p>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <small class="form-text text-muted">控えめ</small>
+                    <small class="form-text text-muted">苦味</small>
+                    <small class="form-text text-muted">強め</small>
+                  </div>
+                </p>
+                <p><strong>投稿日:</strong> <%= post.created_at.strftime("%Y-%m-%d") %></p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="card-footer d-flex justify-content-between">
-          <%= link_to 'Show', post, class: 'btn btn-primary' %>
+          <div class="card-footer d-flex justify-content-between">
+            <%= link_to '詳細', post, class: 'btn btn-primary' %>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
-  
+    <% end %>
   <% else %>
-    
     <div class="col-md-12 text-center">
       <h2><span class="material-symbols-outlined" style="font-size: 40px; vertical-align: middle;">info</span><span style="vertical-align: middle;">まだ投稿がありません</span></h2>
     </div>
-
   <% end %>
-  
 </div>
 
 <div class="d-flex justify-content-center mt-4">
