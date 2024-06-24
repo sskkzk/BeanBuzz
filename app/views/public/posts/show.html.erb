@@ -1,3 +1,5 @@
+<!-- app/views/public/posts/show.html.erb -->
+
 <div class="row justify-content-center">
   <div class="col-md-8">
     <div class="card mb-4">
@@ -10,57 +12,9 @@
       <div class="card-body">
         <%= image_tag @post.get_image.variant(resize_to_fill: [600, 600]).processed, class: 'card-img-top', alt: 'Bean Image' %>
         <p class="card-text"><strong>Origin:</strong> <%= @post.bean_origin %></p>
-        <p class="card-text">
-          <strong>Roast:</strong>
-          <div class="star-rating d-flex justify-content-between">
-            <% 5.times do |i| %>
-              <% if i < @post.bean_roast.to_i %>
-                <span class="fa fa-star checked"></span>
-              <% else %>
-                <span class="fa fa-star"></span>
-              <% end %>
-            <% end %>
-          </div>
-          <div class="d-flex justify-content-between">
-            <small class="form-text text-muted">浅煎り</small>
-            <small class="form-text text-muted">中煎り</small>
-            <small class="form-text text-muted">深煎り</small>
-          </div>
-        </p>
-        <p class="card-text">
-          <strong>Acidity:</strong>
-          <div class="star-rating d-flex justify-content-between">
-            <% 5.times do |i| %>
-              <% if i < @post.bean_acidity.to_i %>
-                <span class="fa fa-star checked"></span>
-              <% else %>
-                <span class="fa fa-star"></span>
-              <% end %>
-            <% end %>
-          </div>
-          <div class="d-flex justify-content-between">
-            <small class="form-text text-muted">控えめ</small>
-            <small class="form-text text-muted">酸味</small>
-            <small class="form-text text-muted">強め</small>
-          </div>
-        </p>
-        <p class="card-text">
-          <strong>Bitterness:</strong>
-          <div class="star-rating d-flex justify-content-between">
-            <% 5.times do |i| %>
-              <% if i < @post.bean_bitter.to_i %>
-                <span class="fa fa-star checked"></span>
-              <% else %>
-                <span class="fa fa-star"></span>
-              <% end %>
-            <% end %>
-          </div>
-          <div class="d-flex justify-content-between">
-            <small class="form-text text-muted">控えめ</small>
-            <small class="form-text text-muted">苦味</small>
-            <small class="form-text text-muted">強め</small>
-          </div>
-        </p>
+        <p class="card-text"><strong>Roast:</strong> <%= @post.bean_roast %></p>
+        <p class="card-text"><strong>Acidity:</strong> <%= @post.bean_acidity %></p>
+        <p class="card-text"><strong>Bitterness:</strong> <%= @post.bean_bitter %></p>
         <p class="card-text"><strong>Extraction:</strong> <%= @post.bean_extraction %></p>
         <p class="card-text"><strong>Body:</strong> <%= @post.bean_body %></p>
         <div class="d-flex justify-content-between mb-4">
@@ -69,13 +23,22 @@
             <%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
           <% end %>
           <%= link_to 'Back', posts_path, class: 'btn btn-primary' %>
-          <%= link_to 'New Comment', new_post_comment_path(@post), class: 'btn btn-success' %>
         </div>
+
+        <!-- コメントフォーム -->
+        <% unless @post.comments.exists?(user: current_user) %>
+          <h5>Leave a Comment</h5>
+          <%= form_with(model: [@post, @post.comments.find_or_initialize_by(user: current_user)], local: true) do |form| %>
+            <div class="form-group">
+              <%= form.text_area :comment_body, class: 'form-control', rows: 3, placeholder: 'コメントを入力してください' %>
+            </div>
+            <%= form.submit 'Submit', class: 'btn btn-primary' %>
+          <% end %>
+        <% end %>
 
         <!-- コメント一覧の表示 -->
         <h5>Comments</h5>
         <div class="list-group mb-4">
-          <!-- コメントがない場合のメッセージ -->
           <% if @post.comments.empty? %>
             <div class="col-md-12 text-center">
               <h2><span class="material-symbols-outlined" style="font-size: 40px; vertical-align: middle;">info</span><span style="vertical-align: middle;">まだコメントがありません。</span></h2>
@@ -94,18 +57,6 @@
             <% end %>
           <% end %>
         </div>
-
-        <!-- コメントフォーム -->
-        <h5>新しいコメント</h5>
-        <%= form_with(model: [ @post, Comment.new ], local: true) do |form| %>
-          <div class="form-group">
-            <%= form.label :comment_body, "コメント" %>
-            <%= form.text_area :comment_body, class: 'form-control' %>
-          </div>
-          <div class="form-group">
-            <%= form.submit "コメントを追加", class: "btn btn-success" %>
-          </div>
-        <% end %>
       </div>
     </div>
   </div>

@@ -8,14 +8,13 @@ class Public::CommentsController < ApplicationController
   end
 
   def create
-    @comment = @post.comments.build(comment_params)
-    @comment.user = current_user
+    @comment = @post.comments.find_or_initialize_by(user: current_user)
+    @comment.assign_attributes(comment_params)
 
     if @comment.save
-      redirect_to post_path(@post), notice: 'Comment was successfully created.'
+      redirect_to post_path(@post), notice: 'コメントが投稿されました。'
     else
-      @comments = @post.comments.includes(:user)
-      render 'public/posts/show'
+      redirect_to post_path(@post), alert: 'コメントの投稿に失敗しました。'
     end
   end
 

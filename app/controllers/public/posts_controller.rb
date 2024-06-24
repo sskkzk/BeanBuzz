@@ -12,7 +12,7 @@ class Public::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @post.get_image
-    @comments = @post.comments.includes(:user) # すべてのコメントを取得
+    @comments = @post.comments.all # すべてのコメントを取得
     @comment = Comment.new
   end
 
