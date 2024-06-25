@@ -4,6 +4,6 @@ class Comment < ApplicationRecord
   
   validates :comment_body, presence: true
   
- validates :user_id, uniqueness: { scope: :post_id, message: "はこの投稿に対して既にコメントしています。" }
+  validates :user_id, uniqueness: { scope: :post_id, message: "はこの投稿に対して既にコメントしています。" }
   
 end

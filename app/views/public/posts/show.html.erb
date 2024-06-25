@@ -80,19 +80,19 @@
             <div class="form-group">
               <%= form.text_area :comment_body, class: 'form-control', rows: 3, placeholder: 'コメントを入力してください' %>
             </div>
-            <%= form.submit '送信', class: 'btn btn-primary' %>
+            <%= form.submit '送信', class: 'btn btn-primary mb-5' %>
           <% end %>
         <% end %>
 
         <!-- コメント一覧の表示 -->
-        <h5>コメント</h5>
+                <h5>コメント</h5>
         <div class="list-group mb-4">
-          <% if @post.comments.empty? %>
+          <% if @comments.empty? %>
             <div class="col-md-12 text-center">
               <h2><span class="material-symbols-outlined" style="font-size: 40px; vertical-align: middle;">info</span><span style="vertical-align: middle;">まだコメントがありません。</span></h2>
             </div>
           <% else %>
-            <% @post.comments.each do |comment| %>
+            <% @comments.each do |comment| %>
               <div class="comment bg-light p-2 mb-2 rounded">
                 <p><strong><%= comment.user.name %>:</strong> <%= comment.comment_body %></p>
                 <div class="d-flex justify-content-end">
@@ -104,6 +104,7 @@
               </div>
             <% end %>
           <% end %>
+        </div>
         </div>
       </div>
     </div>
