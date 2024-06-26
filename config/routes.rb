@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
     resources :users, only: [:index, :show, :update, :destroy] do
       member do
-        get :favorites  # お気に入り一覧ページ
+         get 'favorites' # お気に入り一覧ページ
       end
     end
 

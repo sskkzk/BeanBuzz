@@ -1,15 +1,16 @@
 <div class="row mb-4">
   <div class="col-md-6">
     <h1>マイページ</h1>
+    <%= link_to 'お気に入り一覧へ', favorites_user_path(current_user), class: 'btn btn-primary mt-3 mb-2' %>
   </div>
 </div>
 
 <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">投稿</a>
+    <%= link_to "投稿", "#posts", class: "nav-link active", id: "posts-tab", role: "tab", "aria-controls": "posts", "aria-selected": "true", data: { toggle: "tab" } %>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="false">コメント</a>
+    <%= link_to "コメント", "#comments", class: "nav-link", id: "comments-tab", role: "tab", "aria-controls": "comments", "aria-selected": "false", data: { toggle: "tab" } %>
   </li>
 </ul>
 
@@ -30,107 +31,112 @@
       </div>
 
       <div class="col-md-8">
-        <h2>投稿一覧</h2>
-        <% if @posts.any? %>
-        <% @posts.each do |post| %>
-          <div class="card mb-4">
-            <div class="card-body">
-              <div class="d-flex">
-                <div class="user-info mr-3">
-                  <%= image_tag post.user.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
-                </div>
+  <h2>投稿一覧</h2>
+  <% if @posts.any? %>
+    <% @posts.each do |post| %>
+      <div class="card mb-4">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="user-info mr-3">
+              <%= image_tag post.user.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
+            </div>
+            <div class="flex-grow-1">
+              <div class="d-flex justify-content-between align-items-center">
                 <div>
                   <h5><%= post.user.name %></h5>
                 </div>
-              </div>
-              <div class="d-flex mt-3">
-                <div class="post-image mr-3 d-flex justify-content-center align-items-center">
-                  <% if post.bean_image.attached? %>
-                    <%= image_tag post.bean_image.variant(resize_to_fill: [200, 200]).processed, class: 'img-thumbnail', alt: 'コーヒー豆画像' %>
-                  <% else %>
-                    <%= image_tag 'bean.jpg', size: "200x200", class: 'img-thumbnail', alt: 'デフォルトのコーヒー豆画像' %>
-                  <% end %>
-                </div>
-                <div class="post-details flex-grow-1 align-items-center">
-                  <h5 class="card-title"><%= post.bean_title %></h5>
-                  <p><strong>原産地:</strong> <%= post.bean_origin %></p>
-                  <p>
-                    <strong>焙煎度:</strong>
-                    <div class="star-rating d-flex justify-content-between">
-                      <% 5.times do |i| %>
-                        <% if i < post.bean_roast.to_i %>
-                          <span class="fa fa-star checked"></span>
-                        <% else %>
-                          <span class="fa fa-star"></span>
-                        <% end %>
-                      <% end %>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                      <small class="form-text text-muted">浅煎り</small>
-                      <small class="form-text text-muted">中煎り</small>
-                      <small class="form-text text-muted">深煎り</small>
-                    </div>
-                  </p>
-                  <p>
-                    <strong>酸味:</strong>
-                    <div class="star-rating d-flex justify-content-between">
-                      <% 5.times do |i| %>
-                        <% if i < post.bean_acidity.to_i %>
-                          <span class="fa fa-star checked"></span>
-                        <% else %>
-                          <span class="fa fa-star"></span>
-                        <% end %>
-                      <% end %>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                      <small class="form-text text-muted">少</small>
-                      <small class="form-text text-muted">酸味</small>
-                      <small class="form-text text-muted">多</small>
-                    </div>
-                  </p>
-                  <p>
-                    <strong>苦味:</strong>
-                    <div class="star-rating d-flex justify-content-between">
-                      <% 5.times do |i| %>
-                        <% if i < post.bean_bitter.to_i %>
-                          <span class="fa fa-star checked"></span>
-                        <% else %>
-                          <span class="fa fa-star"></span>
-                        <% end %>
-                      <% end %>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                      <small class="form-text text-muted">少</small>
-                      <small class="form-text text-muted">苦味</small>
-                      <small class="form-text text-muted">多</small>
-                    </div>
-                  </p>
-                  <p><strong>抽出方法:</strong> <%= post.bean_extraction %></p>
-                  <p><strong>ボディ:</strong> <%= post.bean_body %></p>
-                  <p><strong>投稿日:</strong> <%= post.created_at.strftime("%Y-%m-%d") %></p>
-                  <div class="d-flex justify-content-between mt-2">
-                    <%= link_to '詳細', post, class: 'btn btn-primary' %>
-                    <%= link_to '編集', edit_post_path(post), class: 'btn btn-secondary' %>
-                    <%= link_to '削除', post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
-                  </div>
+                <div class="text-muted">
+                  <%= post.favorites.count %> <span class="material-symbols-outlined" style="font-size: 20px; vertical-align: middle;">favorite</span>
                 </div>
               </div>
             </div>
           </div>
-        <% end %>
-        <% else %>
-          <div class="col-md-12 text-center">
-            <h2><span class="material-symbols-outlined" style="font-size: 40px; vertical-align: middle;">info</span><span style="vertical-align: middle;">まだ投稿がありません</span></h2>
-          </div>
-        <% end %>
 
-        <div class="d-flex justify-content-center mt-4">
-          <%= paginate @posts %>
+          <div class="d-flex mt-3">
+            <div class="post-image mr-3 d-flex justify-content-center align-items-center">
+              <% if post.bean_image.attached? %>
+                <%= image_tag post.bean_image.variant(resize_to_fill: [200, 200]).processed, class: 'img-thumbnail', alt: 'コーヒー豆画像' %>
+              <% else %>
+                <%= image_tag 'bean.jpg', size: "200x200", class: 'img-thumbnail', alt: 'デフォルトのコーヒー豆画像' %>
+              <% end %>
+            </div>
+            <div class="post-details flex-grow-1 align-items-center">
+              <h5 class="card-title"><%= post.bean_title %></h5>
+              <p><strong>原産地:</strong> <%= post.bean_origin %></p>
+              <p>
+                <strong>焙煎度:</strong>
+                <div class="star-rating d-flex justify-content-between">
+                  <% 5.times do |i| %>
+                    <% if i < post.bean_roast.to_i %>
+                      <span class="fa fa-star checked"></span>
+                    <% else %>
+                      <span class="fa fa-star"></span>
+                    <% end %>
+                  <% end %>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <small class="form-text text-muted">浅煎り</small>
+                  <small class="form-text text-muted">中煎り</small>
+                  <small class="form-text text-muted">深煎り</small>
+                </div>
+              </p>
+              <p>
+                <strong>酸味:</strong>
+                <div class="star-rating d-flex justify-content-between">
+                  <% 5.times do |i| %>
+                    <% if i < post.bean_acidity.to_i %>
+                      <span class="fa fa-star checked"></span>
+                    <% else %>
+                      <span class="fa fa-star"></span>
+                    <% end %>
+                  <% end %>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <small class="form-text text-muted">少</small>
+                  <small class="form-text text-muted">酸味</small>
+                  <small class="form-text text-muted">多</small>
+                </div>
+              </p>
+              <p>
+                <strong>苦味:</strong>
+                <div class="star-rating d-flex justify-content-between">
+                  <% 5.times do |i| %>
+                    <% if i < post.bean_bitter.to_i %>
+                      <span class="fa fa-star checked"></span>
+                    <% else %>
+                      <span class="fa fa-star"></span>
+                    <% end %>
+                  <% end %>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <small class="form-text text-muted">少</small>
+                  <small class="form-text text-muted">苦味</small>
+                  <small class="form-text text-muted">多</small>
+                </div>
+              </p>
+              <p><strong>抽出方法:</strong> <%= post.bean_extraction %></p>
+              <p><strong>ボディ:</strong> <%= post.bean_body %></p>
+              <p><strong>投稿日:</strong> <%= post.created_at.strftime("%Y-%m-%d") %></p>
+              <div class="d-flex justify-content-between mt-2">
+                <%= link_to '詳細', post, class: 'btn btn-primary' %>
+                <%= link_to '編集', edit_post_path(post), class: 'btn btn-secondary' %>
+                <%= link_to '削除', post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+              </div>
+            </div>
+          </div>
         </div>
-        
       </div>
+    <% end %>
+  <% else %>
+    <div class="col-md-12 text-center">
+      <h2><span class="material-symbols-outlined" style="font-size: 40px; vertical-align: middle;">info</span><span style="vertical-align: middle;">まだ投稿がありません</span></h2>
     </div>
+  <% end %>
+
+  <div class="d-flex justify-content-center mt-4">
+    <%= paginate @posts %>
   </div>
+</div>
 
   <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
     <div class="row">

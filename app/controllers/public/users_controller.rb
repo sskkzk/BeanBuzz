@@ -10,7 +10,7 @@ class Public::UsersController < ApplicationController
   
   def favorites
     @user = User.find(params[:id])
-    @favorites = @user.favorites.includes(:post)
+    @favorites = @user.favorites.includes(:post).order(created_at: :desc).page(params[:page]).per(10)
   end
   
   # GET /users
