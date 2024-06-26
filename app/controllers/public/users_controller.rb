@@ -8,6 +8,11 @@ class Public::UsersController < ApplicationController
     @comments = current_user.comments.page(params[:comment_page]).per(5)
   end
   
+  def favorites
+    @user = User.find(params[:id])
+    @favorites = @user.favorites.includes(:post)
+  end
+  
   # GET /users
   def index
     @users = User.all

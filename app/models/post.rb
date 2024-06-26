@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   has_one_attached :bean_image
   belongs_to :user
   has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   
   validates :bean_origin, presence: true
   validates :bean_roast, presence: true
@@ -21,6 +22,10 @@ class Post < ApplicationRecord
     else
       attach_default_image
     end
+  end
+  
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
   end
 
   private

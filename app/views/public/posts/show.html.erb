@@ -1,13 +1,21 @@
-<!-- app/views/public/posts/show.html.erb -->
-
 <div class="row justify-content-center">
   <div class="col-md-8">
     <div class="card mb-4">
-      <div class="card-header d-flex align-items-center">
-        <%= image_tag @post.user.get_image.variant(resize_to_fill: [40, 40]).processed, class: 'rounded-circle mr-2', alt: 'User Image' %>
-        <h5 class="card-title m-0">
-          <%= link_to @post.user.name, user_path(@post.user), class: 'text-dark' %>
-        </h5>
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+          <%= image_tag @post.user.get_image.variant(resize_to_fill: [40, 40]).processed, class: 'rounded-circle mr-2', alt: 'User Image' %>
+          <h5 class="card-title m-0">
+            <%= link_to @post.user.name, user_path(@post.user), class: 'text-dark' %>
+          </h5>
+        </div>
+        <div class="d-flex align-items-center">
+          <% if @post.favorited_by?(current_user) %>
+            <%= link_to 'お気に入り解除', post_favorite_path(@post), method: :delete, class: 'btn btn-danger ml-2' %>
+          <% else %>
+            <%= link_to 'お気に入り登録', post_favorite_path(@post), method: :post, class: 'btn btn-primary ml-2' %>
+          <% end %>
+          ♡<%= @post.favorites.count %> お気に入り
+        </div>
       </div>
       <div class="card-body">
         <%= image_tag @post.get_image.variant(resize_to_fill: [600, 600]).processed, class: 'card-img-top', alt: 'Bean Image' %>
@@ -85,7 +93,7 @@
         <% end %>
 
         <!-- コメント一覧の表示 -->
-                <h5>コメント</h5>
+        <h5>コメント</h5>
         <div class="list-group mb-4">
           <% if @comments.empty? %>
             <div class="col-md-12 text-center">
@@ -105,9 +113,10 @@
             <% end %>
           <% end %>
         </div>
-        </div>
       </div>
     </div>
   </div>
 </div>
+
+
 

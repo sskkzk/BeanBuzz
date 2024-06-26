@@ -23,19 +23,21 @@ Rails.application.routes.draw do
   }
 
   scope module: :public do
-    
     get '/mypage', to: 'users#mypage', as: 'mypage'
     root to: 'homes#top'
     get '/about', to: 'homes#about', as: 'about', without_authentication: true
     
     resources :posts do
       resources :comments, only: [:new, :create, :edit, :update, :destroy]
+      resource :favorite, only: [:create, :destroy]  # ここをresourceに変更
     end
 
-    resources :users, only: [:index, :show, :update, :destroy]
+    resources :users, only: [:index, :show, :update, :destroy] do
+      member do
+        get :favorites  # お気に入り一覧ページ
+      end
+    end
 
     resources :follows, only: [:index, :new, :create, :show, :edit, :update, :destroy]
-    resources :favorites, only: [:index, :new, :create, :show, :edit, :update, :destroy]
-
   end
 end
