@@ -13,6 +13,10 @@ class Public::UsersController < ApplicationController
     @favorites = @user.favorites.includes(:post).order(created_at: :desc).page(params[:page]).per(10)
   end
   
+  def following
+    @followees = @user.followees
+  end
+  
   # GET /users
   def index
     @users = User.all

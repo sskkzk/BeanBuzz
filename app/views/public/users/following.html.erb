@@ -1,0 +1,21 @@
+<h1><%= @user.name %>がフォローしているユーザー</h1>
+
+<% if @followees.any? %>
+  <ul class="list-group">
+    <% @followees.each do |followee| %>
+      <li class="list-group-item">
+        <div class="d-flex align-items-center">
+          <div class="mr-3">
+            <%= image_tag followee.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
+          </div>
+          <div>
+            <h5><%= link_to followee.name, public_user_path(followee) %></h5>
+            <p><%= followee.introduction %></p>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>フォローしているユーザーはいません。</p>
+<% end %>

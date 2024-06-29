@@ -11,6 +11,18 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy  
   
+  # フォローしているユーザーとの関連
+  has_many :active_follows, class_name: 'Follow', foreign_key: 'follower_id', dependent: :destroy
+  has_many :followees, through: :active_follows, source: :followee
+
+  # フォローされているユーザーとの関連
+  has_many :passive_follows, class_name: 'Follow', foreign_key: 'followee_id', dependent: :destroy
+  has_many :followers, through: :passive_follows, source: :follower
+  
+  def following?(other_user)
+    followees.include?(other_user)
+  end
+  
   validate :active_user, on: :create
   
   def get_image
