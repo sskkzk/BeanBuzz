@@ -1,0 +1,9 @@
+<h1><%= @user.name %>のフォロワー一覧</h1>
+
+<ul>
+  <% @followers.each do |user| %>
+    <li><%= link_to user.name, user_path(user) %></li>
+  <% end %>
+</ul>
+
+<%= link_to '戻る', user_path(@user), class: 'btn btn-secondary mt-3' %>

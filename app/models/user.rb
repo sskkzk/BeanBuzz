@@ -11,17 +11,27 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy  
   
-  # フォローしているユーザーとの関連
-  has_many :active_follows, class_name: 'Follow', foreign_key: 'follower_id', dependent: :destroy
-  has_many :followees, through: :active_follows, source: :followee
-
-  # フォローされているユーザーとの関連
-  has_many :passive_follows, class_name: 'Follow', foreign_key: 'followee_id', dependent: :destroy
-  has_many :followers, through: :passive_follows, source: :follower
   
-  def following?(other_user)
-    followees.include?(other_user)
+  # フォロー関係
+  has_many :follower_relationships, foreign_key: :followee_id, class_name: 'Follow', dependent: :destroy
+  has_many :followers, through: :follower_relationships, source: :follower
+
+  has_many :followee_relationships, foreign_key: :follower_id, class_name: 'Follow', dependent: :destroy
+  has_many :followees, through: :followee_relationships, source: :followee
+
+  def following?(user)
+    followees.include?(user)
   end
+
+  def follow(user)
+    followees << user unless following?(user)
+  end
+
+  def unfollow(user)
+    followees.delete(user) if following?(user)
+  end
+  
+  
   
   validate :active_user, on: :create
   

@@ -1,5 +1,5 @@
 class Public::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :following, :followers]
   before_action :authenticate_user!
 
   def mypage
@@ -8,13 +8,19 @@ class Public::UsersController < ApplicationController
     @comments = current_user.comments.page(params[:comment_page]).per(5)
   end
   
+  def following
+    @user = User.find(params[:id])
+    @followees = @user.followees.page(params[:page]).per(10)  # ページネーションの追加
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @followers = @user.followers.page(params[:page]).per(10)  # ページネーションの追加
+  end
+
   def favorites
     @user = User.find(params[:id])
-    @favorites = @user.favorites.includes(:post).order(created_at: :desc).page(params[:page]).per(10)
-  end
-  
-  def following
-    @followees = @user.followees
+    @favorites = @user.favorites.includes(:post).page(params[:page]).per(10)  # お気に入りの投稿を取得し、ページネーションを追加
   end
   
   # GET /users
@@ -25,7 +31,12 @@ class Public::UsersController < ApplicationController
   # GET /users/:id
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts  
+    @posts = @user.posts
+  
+    # カレントユーザーが表示しているユーザーと同じ場合はmypageにリダイレクト
+    if @user == current_user
+      redirect_to mypage_path
+    end
   end
 
   # GET /users/:id/edit

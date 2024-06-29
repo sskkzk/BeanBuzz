@@ -34,23 +34,17 @@ Rails.application.routes.draw do
 
     resources :users, only: [:index, :show, :update, :destroy] do
       member do
-         get 'favorites' # お気に入り一覧ページ
-      end
-    end
-    
-    resources :users, only: [:index, :show] do
-      member do
+        get 'favorites' # お気に入り一覧ページ
         post 'follow', to: 'follows#create'
         delete 'unfollow', to: 'follows#destroy'
+        get :following
+        get :followers
       end
     end
     
-    resources :users, only: [:show] do
-      member do
-        get :following
-      end
-    end
-
-    resources :follows, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+    resources :follows, only: [:create, :destroy]
   end
 end
+
+
+
