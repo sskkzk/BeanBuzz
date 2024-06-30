@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get '/about', to: 'homes#about', as: 'about', without_authentication: true
     
+    
     resources :posts do
       resources :comments, only: [:new, :create, :edit, :update, :destroy]
       resource :favorite, only: [:create, :destroy]  # ここをresourceに変更

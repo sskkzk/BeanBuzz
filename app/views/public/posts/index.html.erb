@@ -1,6 +1,15 @@
 <h1>投稿一覧</h1>
 
 <div class="row mt-4">
+  <!-- ソートオプション -->
+  <div class="col-md-12 mb-4">
+    <%= form_with(url: posts_path, method: :get, local: true, class: "form-inline") do %>
+      <label for="sort" class="mr-2">並び替え:</label>
+      <%= select_tag :sort, options_for_select([['新しい投稿順', 'newest'], ['古い投稿順', 'oldest'], ['焙煎度が高い順', 'roast_high'], ['焙煎度が低い順', 'roast_low'], ['苦味が高い順', 'bitter_high'], ['苦味が低い順', 'bitter_low'], ['酸味が高い順', 'acidity_high'], ['酸味が低い順', 'acidity_low']], params[:sort]), class: "form-control mr-2" %>
+      <%= submit_tag '並び替え', class: "btn btn-outline-primary" %>
+    <% end %>
+  </div>
+
   <% if @posts.any? %>
     <% @posts.each do |post| %>
       <div class="col-md-6 mb-4">
@@ -95,13 +104,14 @@
         </div>
       </div>
     <% end %>
-    <% else %>
-      <div class="col-md-12 text-center">
-        <h2><span class="material-symbols-outlined" style="font-size: 40px; vertical-align: middle;">info</span><span style="vertical-align: middle;">まだ投稿がありません</span></h2>
-      </div>
-    <% end %>
+  <% else %>
+    <div class="col-md-12 text-center">
+      <h2><span class="material-symbols-outlined" style="font-size: 40px; vertical-align: middle;">info</span><span style="vertical-align: middle;">まだ投稿がありません</span></h2>
+    </div>
+  <% end %>
 </div>
 
 <div class="d-flex justify-content-center mt-4">
   <%= paginate @posts %>
 </div>
+

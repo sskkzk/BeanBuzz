@@ -2,10 +2,35 @@ class Public::PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    if params[:search_header]
-      @posts = Post.search(params[:search_header]).page(params[:page]).per(10)
+    @posts = if params[:search_header]
+               Post.search(params[:search_header]).page(params[:page]).per(10)
+             else
+               sorted_posts(Post.page(params[:page]).per(10))
+             end
+  end
+
+  private
+
+  def sorted_posts(posts)
+    case params[:sort]
+    when 'newest'
+      posts.order(created_at: :desc)
+    when 'oldest'
+      posts.order(created_at: :asc)
+    when 'roast_high'
+      posts.order(bean_roast: :desc)
+    when 'roast_low'
+      posts.order(bean_roast: :asc)
+    when 'bitter_high'
+      posts.order(bean_bitter: :desc)
+    when 'bitter_low'
+      posts.order(bean_bitter: :asc)
+    when 'acidity_high'
+      posts.order(bean_acidity: :desc)
+    when 'acidity_low'
+      posts.order(bean_acidity: :asc)
     else
-      @posts = Post.page(params[:page]).per(10)
+      posts
     end
   end
 

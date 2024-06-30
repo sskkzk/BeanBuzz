@@ -1,4 +1,16 @@
 <%= form_with(model: post, local: true) do |form| %>
+
+  <% if post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <ul>
+        <% post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="form-group">
     <%= form.label :bean_origin, "豆の産地" %>
     <%= form.text_field :bean_origin, class: 'form-control' %>
