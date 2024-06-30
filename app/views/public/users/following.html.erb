@@ -9,7 +9,7 @@
             <%= image_tag followee.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
           </div>
           <div>
-            <h5><%= link_to followee.name, public_user_path(followee) %></h5>
+            <h5><%= link_to followee.name, user_path(followee) %></h5>
             <p><%= followee.introduction %></p>
           </div>
         </div>

@@ -3,12 +3,12 @@ class Public::FollowsController < ApplicationController
 
   def create
     current_user.follow(@user)
-    redirect_back(fallback_location: root_path)
+    redirect_to @user, notice: 'フォローしました。'
   end
 
   def destroy
     current_user.unfollow(@user)
-    redirect_back(fallback_location: root_path)
+    redirect_to @user, alert: 'フォローを解除しました。'
   end
 
   private

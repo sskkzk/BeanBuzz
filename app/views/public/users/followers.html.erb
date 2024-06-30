@@ -1,9 +1,29 @@
 <h1><%= @user.name %>のフォロワー一覧</h1>
 
-<ul>
-  <% @followers.each do |user| %>
-    <li><%= link_to user.name, user_path(user) %></li>
-  <% end %>
-</ul>
+<% if @followers.any? %>
+  <ul class="list-group">
+    <% @followers.each do |follower| %>
+      <li class="list-group-item">
+        <div class="d-flex align-items-center">
+          <div class="mr-3">
+            <%= image_tag follower.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
+          </div>
+          <div>
+            <h5><%= link_to follower.name, user_path(follower) %></h5>
+            <p><%= follower.introduction %></p>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
 
+  <!-- ページネーションの追加 -->
+  <div class="mt-3">
+    <%= paginate @followers %>
+  </div>
+<% else %>
+  <p>フォロワーはいません。</p>
+<% end %>
+
+<!-- マイページへの戻るボタン -->
 <%= link_to '戻る', user_path(@user), class: 'btn btn-secondary mt-3' %>

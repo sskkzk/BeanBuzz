@@ -2,14 +2,14 @@
   <div class="col-md-6">
       <h1><%= @user.name %>のページ</h1>
       <% if current_user.following?(@user) %>
-        <%= button_to 'アンフォロー', unfollow_user_path(@user), method: :delete, class: 'btn btn-danger' %>
+        <%= button_to 'フォローを外す', unfollow_user_path(@user), method: :delete, params: { user_id: @user.id }, class: 'btn btn-danger' %>
       <% else %>
-        <%= button_to 'フォロー', follow_user_path(@user), method: :post, class: 'btn btn-primary' %>
+        <%= button_to 'フォロー', follow_user_path(@user), method: :post, params: { user_id: @user.id }, class: 'btn btn-primary' %>
       <% end %>
+
       <%= link_to 'フォローユーザー一覧', following_user_path(@user), class: 'btn btn-success mt-3' %>
       <%= link_to 'フォロワー一覧', followers_user_path(@user), class: 'btn btn-info mt-3' %>
   </div>
-  
 </div>
 
 <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
@@ -30,7 +30,8 @@
           <div class="card-body text-center">
             <%= image_tag @user.user_image.variant(resize_to_fill: [300, 300]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
             <h5 class="card-title mt-3"><%= @user.name %></h5>
-            <p class="card-text"><strong>メールアドレス:</strong> <%= @user.email %></p>
+            <p class="card-text"><strong>フォロー数:</strong> <%= @user.followees.count %></p>
+            <p class="card-text"><strong>フォロワー数:</strong> <%= @user.followers.count %></p>
             <p class="card-text"><strong>自己紹介:</strong> <%= @user.introduction %></p>
           </div>
         </div>
@@ -39,7 +40,7 @@
       <div class="col-md-8">
         <h2>投稿一覧</h2>
         <% if @posts.any? %>
-          <% @user.posts.each do |post| %>
+          <% @posts.each do |post| %>
             <div class="card mb-4">
               <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -57,6 +58,7 @@
                     </div>
                   </div>
                 </div>
+
                 <div class="d-flex mt-3">
                   <div class="post-image mr-3 d-flex justify-content-center align-items-center">
                     <% if post.bean_image.attached? %>
@@ -139,6 +141,10 @@
             <h2><span class="material-symbols-outlined" style="font-size: 40px; vertical-align: middle;">info</span><span style="vertical-align: middle;">まだ投稿がありません</span></h2>
           </div>
         <% end %>
+
+        <div class="d-flex justify-content-center mt-4">
+          <%= paginate @posts %>
+        </div>
       </div>
     </div>
   </div>
@@ -151,7 +157,8 @@
           <div class="card-body text-center">
             <%= image_tag @user.user_image.variant(resize_to_fill: [300, 300]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
             <h5 class="card-title mt-3"><%= @user.name %></h5>
-            <p class="card-text"><strong>メールアドレス:</strong> <%= @user.email %></p>
+            <p class="card-text"><strong>フォロー数:</strong> <%= @user.followees.count %></p>
+            <p class="card-text"><strong>フォロワー数:</strong> <%= @user.followers.count %></p>
             <p class="card-text"><strong>自己紹介:</strong> <%= @user.introduction %></p>
           </div>
         </div>
@@ -180,6 +187,10 @@
             <h2><span class="material-symbols-outlined" style="font-size: 40px; vertical-align: middle;">info</span><span style="vertical-align: middle;">まだコメントを残していません。</span></h2>
           </div>
         <% end %>
+
+        <div class="d-flex justify-content-center mt-4">
+          <%= paginate @comments %>
+        </div>
       </div>
     </div>
   </div>
