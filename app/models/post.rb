@@ -12,8 +12,12 @@ class Post < ApplicationRecord
   validates :bean_title, presence: true
   validates :bean_body, presence: true
   
-  def self.search(query)
-    where("bean_title LIKE ?", "%#{query}%")
+  def self.search(search)
+    if search
+      where('bean_title LIKE ? OR bean_body LIKE ?', "%#{search}%", "%#{search}%")
+    else
+      all
+    end
   end
   
   def get_image

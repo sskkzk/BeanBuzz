@@ -24,8 +24,12 @@ class Public::UsersController < ApplicationController
   end
   
   # GET /users
-  def index
-    @users = User.all
+   def index
+    if params[:search_users]
+      @users = User.where('name LIKE ?', "%#{params[:search_users]}%").page(params[:page]).per(30)
+    else
+      @users = User.page(params[:page]).per(30)
+    end
   end
 
   # GET /users/:id

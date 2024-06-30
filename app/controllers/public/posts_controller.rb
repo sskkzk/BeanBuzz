@@ -2,8 +2,8 @@ class Public::PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    if params[:search]
-      @posts = Post.search(params[:search])
+    if params[:search_header]
+      @posts = Post.search(params[:search_header]).page(params[:page]).per(10)
     else
       @posts = Post.page(params[:page]).per(10)
     end
