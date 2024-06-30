@@ -26,7 +26,10 @@
           <% end %>
         </li>
         <li class="nav-item">
-          <%= link_to 'About', '/about', class: 'nav-link' %>
+          <%= link_to '/about', class: 'nav-link' do %>
+            <i class="fa-solid fa-link"></i>
+            About
+          <% end %>
         </li>
       <% end %>
       
@@ -51,10 +54,16 @@
         </li>
       <% else %>
         <li class="nav-item">
-          <%= link_to 'Login', new_user_session_path, class: 'nav-link' %>
+          <%= link_to new_user_session_path, class: 'nav-link' do %>
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Login
+          <% end %>
         </li>
         <li class="nav-item">
-          <%= link_to 'Sign Up', new_user_registration_path, class: 'nav-link' %>
+          <%= link_to new_user_registration_path, class: 'nav-link' do %>
+            <i class="fa-solid fa-user-plus"></i>
+            Sign Up
+          <% end %>
         </li>
       <% end %>
     </ul>
