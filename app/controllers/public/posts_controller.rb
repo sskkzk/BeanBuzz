@@ -9,30 +9,6 @@ class Public::PostsController < ApplicationController
              end
   end
 
-  private
-
-  def sorted_posts(posts)
-    case params[:sort]
-    when 'newest'
-      posts.order(created_at: :desc)
-    when 'oldest'
-      posts.order(created_at: :asc)
-    when 'roast_high'
-      posts.order(bean_roast: :desc)
-    when 'roast_low'
-      posts.order(bean_roast: :asc)
-    when 'bitter_high'
-      posts.order(bean_bitter: :desc)
-    when 'bitter_low'
-      posts.order(bean_bitter: :asc)
-    when 'acidity_high'
-      posts.order(bean_acidity: :desc)
-    when 'acidity_low'
-      posts.order(bean_acidity: :asc)
-    else
-      posts
-    end
-  end
 
   def show
     @post = Post.find(params[:id])
@@ -47,7 +23,7 @@ class Public::PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      redirect_to @post, notice: '投稿が正常に作成されました。'
+      redirect_to posts_path, notice: '投稿が正常に作成されました。'
     else
       render :new
     end
@@ -77,5 +53,29 @@ class Public::PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:bean_origin, :bean_roast, :bean_acidity, :bean_bitter, :bean_extraction, :bean_title, :bean_body, :bean_image)
   end
+  
+  def sorted_posts(posts)
+    case params[:sort]
+    when 'newest'
+      posts.order(created_at: :desc)
+    when 'oldest'
+      posts.order(created_at: :asc)
+    when 'roast_high'
+      posts.order(bean_roast: :desc)
+    when 'roast_low'
+      posts.order(bean_roast: :asc)
+    when 'bitter_high'
+      posts.order(bean_bitter: :desc)
+    when 'bitter_low'
+      posts.order(bean_bitter: :asc)
+    when 'acidity_high'
+      posts.order(bean_acidity: :desc)
+    when 'acidity_low'
+      posts.order(bean_acidity: :asc)
+    else
+      posts
+    end
+  end
+
 end
 
