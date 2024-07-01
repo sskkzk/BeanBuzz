@@ -36,6 +36,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       # 真偽
       t.boolean :status, default: true  # デフォルト値をtrueに設定
       
+      t.boolean :is_private, default: false  # デフォルト値をtrueに設定、鍵アカウント用
+      
       t.timestamps null: false
     end
 

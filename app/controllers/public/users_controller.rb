@@ -24,7 +24,7 @@ class Public::UsersController < ApplicationController
   end
   
   # GET /users
-   def index
+  def index
     if params[:search_users]
       @users = User.where('name LIKE ?', "%#{params[:search_users]}%").page(params[:page]).per(30)
     else
@@ -34,14 +34,21 @@ class Public::UsersController < ApplicationController
 
   # GET /users/:id
   def show
-    @user = User.find(params[:id])
-    @posts = @user.posts.page(params[:page]).per(10) # 1ページに表示する投稿数を設定
-    @comments = @user.comments.page(params[:page]).per(10) # 1ページに表示するコメント数を設定
+  @user = User.find(params[:id])
   
-    # カレントユーザーが表示しているユーザーと同じ場合はmypageにリダイレクト
-    if @user == current_user
+    # 現在のユーザーが対象のユーザーの場合はマイページへリダイレクト
+    if current_user == @user
       redirect_to mypage_path
+      return # ここで処理を終了させる
     end
+  
+    # 鍵垢関係の処理をスキップするための追加チェック
+    if @user.is_private && !current_user.following?(@user)
+      redirect_to root_path, alert: "このユーザーのプロフィールは非公開です。"
+      return # ここで処理を終了させる
+    end
+
+  # その他のプロフィールページの処理...
   end
 
   # GET /users/:id/edit
@@ -52,12 +59,13 @@ class Public::UsersController < ApplicationController
 
   # PATCH /users/:id
   def update
+  @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to @user, notice: 'User profile was successfully updated.'
+      redirect_to user_path(current_user), notice: '設定が更新されました。'
     else
       render :edit
     end
-  end
+  end 
 
   # DELETE /users/:id
   def destroy
@@ -74,6 +82,8 @@ class Public::UsersController < ApplicationController
 
   # Strong parameters for user
   def user_params
-    params.require(:user).permit(:name, :email, :user_image,)
+    params.require(:user).permit(:name, :email, :user_image, :is_private)
   end
+  
+
 end

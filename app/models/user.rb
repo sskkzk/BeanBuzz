@@ -49,10 +49,16 @@ class User < ApplicationRecord
     user_image
   end
   
+  def private_account?
+    is_private
+  end
+  
   private
   
  def active_user
   errors.add(:base, 'このアカウントはブロックされています。') unless status
  end
+ 
+ 
 end
 

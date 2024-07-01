@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   scope module: :public do
     get '/mypage', to: 'users#mypage', as: 'mypage'
+    post '/mypage', to: 'users#update'
     root to: 'homes#top'
     get '/about', to: 'homes#about', as: 'about', without_authentication: true
     
