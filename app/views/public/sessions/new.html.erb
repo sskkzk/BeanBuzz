@@ -1,26 +1,28 @@
-<h2 class="text-center mt-5">Log in</h2>
+<h2 class="text-center mt-5">ログイン</h2>
 
 <div class="container">
   <div class="row justify-content-center mb-5">
     <div class="col-md-6">
       <%= form_with model: @user, url: session_path(resource_name), local: true, class: 'form-signin' do |f| %>
         <div class="form-group">
-          <%= f.label :email %>
+          <%= f.label :email, "メールアドレス" %>
           <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email" %>
         </div>
 
         <div class="form-group">
-          <%= f.label :password %>
+          <%= f.label :password, "パスワード" %>
           <%= f.password_field :password, class: 'form-control', autocomplete: "current-password" %>
         </div>
 
-        <div class="form-group form-check">
-          <%= f.check_box :remember_me, class: 'form-check-input' if devise_mapping.rememberable? %>
-          <%= f.label :remember_me, class: 'form-check-label' if devise_mapping.rememberable? %>
-        </div>
+        <% if devise_mapping.rememberable? %>
+          <div class="form-group form-check">
+            <%= f.check_box :remember_me, class: 'form-check-input' %>
+            <%= f.label :remember_me, "ログイン情報を記憶する", class: 'form-check-label' %>
+          </div>
+        <% end %>
 
         <div class="form-group text-center">
-          <%= f.submit "Log in", class: 'btn btn-primary btn-block' %>
+          <%= f.submit "ログイン", class: 'btn btn-primary btn-block' %>
         </div>
       <% end %>
       
@@ -29,3 +31,4 @@
     </div>
   </div>
 </div>
+
