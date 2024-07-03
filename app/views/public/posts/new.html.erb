@@ -1,6 +1,15 @@
 <h1>New Post</h1>
 
-
+<% if @post.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@post.errors.count, "つ空欄があります。") %></h2>
+    <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <%= render 'form', post: @post %>
 
