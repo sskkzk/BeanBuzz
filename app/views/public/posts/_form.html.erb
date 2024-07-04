@@ -1,5 +1,11 @@
 
 <%= form_with model: post, method: :post, path: posts_path, local: true do |form| %>
+
+  <div class="form-group">
+    <%= form.label :bean_image, "投稿画像" %>
+    <%= form.file_field :bean_image, class: 'form-control-file' %>
+  </div>
+
   <div class="form-group">
     <%= form.label :bean_origin, "豆の産地" %>
     <%= form.text_field :bean_origin, class: 'form-control' %>
@@ -41,18 +47,13 @@
   </div>
 
   <div class="form-group">
-    <%= form.label :bean_title, "タイトル" %>
+    <%= form.label :bean_title, "見出し" %>
     <%= form.text_field :bean_title, class: 'form-control' %>
   </div>
 
   <div class="form-group">
-    <%= form.label :bean_body, "本文" %>
+    <%= form.label :bean_body, "感想" %>
     <%= form.text_area :bean_body, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :bean_image, "画像" %>
-    <%= form.file_field :bean_image, class: 'form-control-file' %>
   </div>
 
   <div class="actions">

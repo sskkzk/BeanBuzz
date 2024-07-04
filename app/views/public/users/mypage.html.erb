@@ -58,7 +58,7 @@
             <h5 class="card-title mt-3"><%= current_user.name %></h5>
             <p class="card-text"><strong>フォロー数:</strong> <%= current_user.followees.count %></p>
             <p class="card-text"><strong>フォロワー数:</strong> <%= current_user.followers.count %></p>
-            <p class="card-text"><strong>自己紹介:</strong> <%= current_user.introduction %></p>
+            <p class="card-text"><strong>ひとこと:</strong> <%= current_user.introduction %></p>
             <%= link_to edit_user_registration_path, class: 'btn btn-secondary' do %>
               <i class="fa-solid fa-user-gear"></i> プロフィールを編集
             <% end %>
@@ -186,7 +186,7 @@
             <h5 class="card-title mt-3"><%= current_user.name %></h5>
             <p class="card-text"><strong>フォロー数:</strong> <%= current_user.followees.count %></p>
             <p class="card-text"><strong>フォロワー数:</strong> <%= current_user.followers.count %></p>
-            <p class="card-text"><strong>自己紹介:</strong> <%= current_user.introduction %></p>
+            <p class="card-text"><strong>ひとこと:</strong> <%= current_user.introduction %></p>
             <%= link_to 'プロフィールを編集', edit_user_registration_path, class: 'btn btn-secondary' %>
           </div>
         </div>
