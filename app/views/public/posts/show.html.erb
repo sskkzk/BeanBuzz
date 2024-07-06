@@ -76,7 +76,7 @@
           </div>
         </p>
         <p class="card-text"><strong>抽出方法:</strong> <%= @post.bean_extraction %></p>
-        <p class="card-text"><strong>ボディ:</strong> <%= @post.bean_body %></p>
+        <p class="card-text"><strong>感想:</strong> <%= @post.bean_body %></p>
         <div class="d-flex justify-content-between mb-4">
           <% if current_user == @post.user %>
             <%= link_to '編集', edit_post_path(@post), class: 'btn btn-secondary' %>

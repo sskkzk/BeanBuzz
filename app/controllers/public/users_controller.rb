@@ -48,7 +48,8 @@ class Public::UsersController < ApplicationController
       return # ここで処理を終了させる
     end
 
-  # その他のプロフィールページの処理...
+  @posts = @user.posts.page(params[:page]).per(10)
+  @comments = @user.comments.page(params[:page]).per(10)
   end
 
   # GET /users/:id/edit
