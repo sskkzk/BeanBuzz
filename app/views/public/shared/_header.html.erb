@@ -5,7 +5,7 @@
     coffee_maker
   </span>
   <%= link_to 'BeanBuzz', root_path, class: 'navbar-brand' %>
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -84,11 +84,11 @@
       </ul>
     <% end %>
   
-  <% if user_signed_in? %>  
-    <%= form_with(url: posts_path, method: "get", class: "form-inline my-2 my-lg-0") do %>
-      <%= text_field_tag :search_header, params[:search_header], class: "form-control mr-sm-2", placeholder: "投稿検索", aria_label: "Search", style: 'margin-right: 10px;' %>
-      <%= submit_tag "Search", class: "btn btn-outline-success my-2 my-sm-0" %>
+    <% if user_signed_in? %>  
+      <%= form_with(url: posts_path, method: "get", class: "form-inline my-2 my-lg-0") do %>
+        <%= text_field_tag :search_header, params[:search_header], class: "form-control mr-sm-2", placeholder: "投稿検索", aria_label: "Search", style: 'margin-right: 10px;' %>
+        <%= submit_tag "Search", class: "btn btn-outline-success my-2 my-sm-0" %>
+      <% end %>
     <% end %>
-  <% end %>
   </div>
 </nav>
