@@ -23,7 +23,7 @@ class Public::PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      redirect_to posts_path, notice: '投稿が正常に作成されました。'
+      redirect_to post_path(@post), notice: '投稿が正常に作成されました。'
     else
       render :new
     end
