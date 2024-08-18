@@ -3,8 +3,8 @@
     <h1><i class="fa-solid fa-user"></i>マイページ</h1>
     <div class="d-flex flex-column flex-md-row align-items-start justify-content-between">
       <div>
-        <%= link_to favorites_user_path(current_user), class: 'btn btn-primary mt-3 mb-2 mr-md-2', title: 'お気に入り一覧を表示' do %>
-          <i class="fa-solid fa-star"></i> お気に入り
+        <%= link_to favorites_user_path(current_user), class: 'btn btn-primary mt-3 mb-2 mr-md-2', title: 'いいね一覧を表示' do %>
+          <i class="fa-solid fa-heart"></i> いいね
         <% end %>
         <%= link_to following_user_path(current_user), class: 'btn btn-success mt-3 mb-2 mr-md-2', title: 'フォローしているユーザーを表示' do %>
           <i class="fas fa-user-friends"></i> フォロー中
