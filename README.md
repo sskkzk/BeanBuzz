@@ -27,8 +27,6 @@
 - 好みのコーヒーを探したい時
 - コーヒーの共有をしたい時
 ​
-## 設計書
-- 「あなたの好みのコーヒー診断」をぜひ追加したい
 
 ## 開発環境
 - OS：Linux(CentOS)
@@ -38,9 +36,9 @@
 - IDE：Cloud9
 ​
 ## 使用素材
-- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
-- アプリケーションの実装に使用したgem/bootstrapのリファレンスなどの記載は不要です。
-- 使用しない場合は、使用素材の項目をREADMEから削除してください。
+- いらすとや　https://www.irasutoya.com/
+- fontawesome　https://fontawesome.com/
+- googlefonts https://fonts.google.com/icons
  
 ## 実装機能リスト
 - https://docs.google.com/spreadsheets/d/1GDi8sYKpHTGTcA9YAAkQVuw8RxzeMk-B-lWc6U1NL2U/edit?usp=sharing
