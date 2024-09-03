@@ -61,16 +61,25 @@ ja:
       not_saved:
         one: "1つのエラーがこの%{resource}の保存を禁止しました："
         other: "%{count}つのエラーがこの%{resource}の保存を禁止しました："
+
   activerecord:
     models:
       post: "投稿"
+      user: "ユーザー"  # userモデルを追加
     attributes:
       post:
         bean_origin: "豆の産地"
         bean_extraction: "抽出方法"
         bean_title: "タイトル"
         bean_body: "本文"
+      user:  # userモデルのカラム名を追加
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード確認"
+        current_password: "現在のパスワード"
+    
     errors:
       messages:
         blank: "を入力してください"
+
 

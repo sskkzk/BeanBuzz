@@ -1,12 +1,13 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]  # ここを追加
 
   def index
     @posts = if params[:search_header]
-               Post.search(params[:search_header]).page(params[:page]).per(10)
-             else
-               sorted_posts(Post.page(params[:page]).per(10))
-             end
+       Post.search(params[:search_header]).page(params[:page]).per(10)
+     else
+       sorted_posts(Post.page(params[:page]).per(10))
+     end
   end
 
 
@@ -52,6 +53,14 @@ class Public::PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:bean_origin, :bean_roast, :bean_acidity, :bean_bitter, :bean_extraction, :bean_title, :bean_body, :bean_image)
+  end
+
+  # 現在のユーザーがその投稿の所有者であるかどうかを確認するメソッド
+  def correct_user
+    @post = Post.find(params[:id])
+    unless @post.user == current_user
+      redirect_to(posts_path, alert: '他のユーザーの投稿を編集することはできません。')
+    end
   end
   
   def sorted_posts(posts)
