@@ -43,7 +43,7 @@ class Public::CommentsController < ApplicationController
   def set_post
     @post = Post.find(params[:post_id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to root_path, alert: "Post not found."
+    redirect_to root_path, alert: "投稿が見つかりませんでした。"
   end
 
   def set_comment
