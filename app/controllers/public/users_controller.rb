@@ -45,7 +45,7 @@ class Public::UsersController < ApplicationController
     @comments = @user.comments.page(params[:page]).per(10)
   end
 
-  # GET /users/:id/edit
+  # GET /users/:id/edit　　@user == current_userの記述で他者が編集できないようにするパターン
   def edit
     redirect_to root_path, alert: 'Access denied.' unless @user == current_user
   end
