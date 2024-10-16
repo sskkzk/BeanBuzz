@@ -1,10 +1,10 @@
 class Public::PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :correct_user, only: [:edit, :update, :destroy]  # ここを追加
+  before_action :authenticate_user!, except: [:index, :show]  # Deviseのヘルパーメソッド、except: [:index, :show] 以外はログイン画面へ
+  before_action :correct_user, only: [:edit, :update, :destroy]  # ログインユーザーか確認
 
   def index
     @posts = if params[:search_header]
-       Post.search(params[:search_header]).page(params[:page]).per(10)
+       Post.search(params[:search_header]).page(params[:page]).per(10) #kaminariの記述
      else
        sorted_posts(Post.page(params[:page]).per(10))
      end
