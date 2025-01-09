@@ -1,5 +1,5 @@
 class Public::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :following, :followers]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :following, :followers, :favorites]
   before_action :authenticate_user!
 
   def mypage
@@ -17,7 +17,11 @@ class Public::UsersController < ApplicationController
   end
 
   def favorites
-    @favorites = @user.favorites.includes(:post).page(params[:page]).per(10)  # お気に入りの投稿を取得し、ページネーションを追加
+    if @user.present?
+      @favorites = @user.favorites.includes(:post).page(params[:page]).per(10)  # お気に入りの投稿を取得し、ページネーションを追加
+    else
+      redirect_to root_path, alert: "ユーザーが見つかりませんでした。"
+    end
   end
   
   # GET /users
@@ -45,7 +49,7 @@ class Public::UsersController < ApplicationController
     @comments = @user.comments.page(params[:page]).per(10)
   end
 
-  # GET /users/:id/edit　　@user == current_userの記述で他者が編集できないようにするパターン
+  # GET /users/:id/edit
   def edit
     redirect_to root_path, alert: 'Access denied.' unless @user == current_user
   end
@@ -69,7 +73,8 @@ class Public::UsersController < ApplicationController
 
   # Callback to set user
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
+    redirect_to root_path, alert: "ユーザーが見つかりません。" unless @user
   end
 
   # Strong parameters for user
@@ -77,4 +82,5 @@ class Public::UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :user_image, :is_private)
   end
 end
+
 

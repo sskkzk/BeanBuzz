@@ -1,38 +1,39 @@
-<h1><%= current_user.name %>いいねした投稿一覧</h1>
+<h1><%= current_user&.name || 'ゲストユーザー' %>いいねした投稿一覧</h1>
 
 <div class="row mt-4">
-  <% if @favorites.any? %>
+  <% if @favorites.present? && @favorites.any? %>
     <% @favorites.each do |favorite| %>
+      <% post = favorite.post %>
       <div class="col-md-6 mb-4">
         <div class="card">
           <div class="card-body d-flex">
             <div class="user-info mr-3">
-              <% if favorite.post.user %>
-                <% if current_user == favorite.post.user %>
+              <% if post.user %>
+                <% if current_user == post.user %>
                   <%= link_to mypage_path, class: 'text-dark' do %>
-                    <h5><%= favorite.post.user.name %></h5>
-                    <%= image_tag favorite.post.user.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
+                    <h5><%= post.user.name %></h5>
+                    <%= image_tag post.user.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
                   <% end %>
                 <% else %>
-                  <%= link_to user_path(favorite.post.user), class: 'text-dark' do %>
-                    <h5><%= favorite.post.user.name %></h5>
-                    <%= image_tag favorite.post.user.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
+                  <%= link_to user_path(post.user), class: 'text-dark' do %>
+                    <h5><%= post.user.name %></h5>
+                    <%= image_tag post.user.get_image.variant(resize_to_fill: [60, 60]).processed, class: 'rounded-circle', alt: 'ユーザー画像' %>
                   <% end %>
                 <% end %>
               <% end %>
             </div>
             <div class="post-content d-flex w-100">
               <div class="post-image mr-3">
-                <%= image_tag favorite.post.get_image.variant(resize_to_fill: [200, 200]).processed, class: 'img-thumbnail', alt: 'コーヒー豆画像' %>
+                <%= image_tag (post.get_image.attached? ? post.get_image.variant(resize_to_fill: [200, 200]).processed : 'default_image.jpg'), class: 'img-thumbnail', alt: 'コーヒー豆画像' %>
               </div>
               <div class="post-details flex-grow-1">
-                <h5 class="card-title"><%= favorite.post.bean_title %></h5>
-                <p><strong>原産地:</strong> <%= favorite.post.bean_origin %></p>
+                <h5 class="card-title"><%= post.bean_title %></h5>
+                <p><strong>原産地:</strong> <%= post.bean_origin %></p>
                 <p>
                   <strong>焙煎度:</strong>
                   <div class="star-rating d-flex justify-content-between">
                     <% 5.times do |i| %>
-                      <% if i < favorite.post.bean_roast.to_i %>
+                      <% if i < post.bean_roast.to_i %>
                         <span class="fa fa-star checked"></span>
                       <% else %>
                         <span class="fa fa-star"></span>
@@ -49,7 +50,7 @@
                   <strong>酸味:</strong>
                   <div class="star-rating d-flex justify-content-between">
                     <% 5.times do |i| %>
-                      <% if i < favorite.post.bean_acidity.to_i %>
+                      <% if i < post.bean_acidity.to_i %>
                         <span class="fa fa-star checked"></span>
                       <% else %>
                         <span class="fa fa-star"></span>
@@ -66,7 +67,7 @@
                   <strong>苦味:</strong>
                   <div class="star-rating d-flex justify-content-between">
                     <% 5.times do |i| %>
-                      <% if i < favorite.post.bean_bitter.to_i %>
+                      <% if i < post.bean_bitter.to_i %>
                         <span class="fa fa-star checked"></span>
                       <% else %>
                         <span class="fa fa-star"></span>
@@ -79,24 +80,29 @@
                     <small class="form-text text-muted">強め</small>
                   </div>
                 </p>
-                <p><strong>投稿日:</strong> <%= favorite.post.created_at.strftime("%Y-%m-%d") %></p>
+                <p><strong>投稿日:</strong> <%= post.created_at.strftime("%Y-%m-%d") %></p>
               </div>
             </div>
           </div>
           <div class="card-footer d-flex justify-content-between align-items-center">
             <div>
-              <%= link_to '詳細', favorite.post, class: 'btn btn-primary mr-2' %>
+              <%= link_to '詳細', post, class: 'btn btn-primary mr-2' %>
             </div>
             <div>
-              <span class="text-muted"><%= favorite.post.favorites.count %> <span class="material-symbols-outlined", style="font-size: 20px; vertical-align: middle;">favorite</span︎></span>
+              <span class="text-muted"><%= post.favorites.count %> <span class="material-symbols-outlined" style="font-size: 20px; vertical-align: middle;">favorite</span︎></span>
             </div>
           </div>
         </div>
       </div>
     <% end %>
   <% else %>
-    <div class="col-md-12 text-center">
-      <h2><span class="material-symbols-outlined" style="font-size: 40px; vertical-align: middle;">info</span><span style="vertical-align: middle;">いいねした投稿がありません</span></h2>
+    <div class="col-md-12 text-center mt-5">
+      <h2 class="text-muted">
+        <span class="material-symbols-outlined" style="font-size: 40px;">info</span>
+        いいねした投稿がありません
+      </h2>
+      <p class="text-muted">気になる投稿に「いいね」をしてみましょう！</p>
+      <%= link_to '投稿を探す', posts_path, class: 'btn btn-primary mt-3' %>
     </div>
   <% end %>
 </div>
@@ -107,5 +113,4 @@
   </div>
 </div>
 
-
-<%= link_to '戻る', user_path(@user), class: 'btn btn-secondary mt-3' %>
+<%= link_to '戻る', (@user ? user_path(@user) : root_path), class: 'btn btn-secondary mt-3' %>
